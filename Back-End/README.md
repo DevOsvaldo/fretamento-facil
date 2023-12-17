@@ -13,8 +13,8 @@ Este projeto é uma API construída usando Java, Java Spring, PostgresSQL como b
 ## Indice
 
 - [Instalação](#instalação)
-- [Configuração](#configuração)
-- [Modo de Uso](#modouso)
+- [Configuração](#configuration)
+- [Modo de Uso](#usage)
 - [API Endpoints](#api-endpoints)
 - [Authentication](#authentication)
 - [Database](#database)
