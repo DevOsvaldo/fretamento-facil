@@ -22,10 +22,7 @@ public class Role {
     public Role() {
 
     }
-    /*
-    @JsonIgnore
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users = new HashSet<>();*/
+
 
     public Role(UserRole roleName) {
         this.roleName = roleName;

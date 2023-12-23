@@ -31,6 +31,7 @@ public class TokenService {
                     .withSubject(user.getLogin())
                     .withExpiresAt(genExpirationDate())
                     .withClaim("roles", roles)
+                    .withClaim("userId",user.getId())
                     .sign(algorithm);
             return token;
         } catch (JWTCreationException exception) {

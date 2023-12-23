@@ -1,10 +1,14 @@
 package com.projetoJwt.auth.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.projetoJwt.auth.domain.user.Role;
+import com.projetoJwt.auth.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -14,6 +18,7 @@ public class Condutor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+    private String cpf;
     private String endereco;
     private String tipo_Veiculo;
     private Double capacidadeVeiculo;
@@ -24,22 +29,28 @@ public class Condutor {
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-            name = "condutor_produto_carga",
+            name = "condutor_carga",
             joinColumns = @JoinColumn(name = "condutor_id"),
             inverseJoinColumns = @JoinColumn(name = "produtoCarga_id"))
     private List<Carga> carga ;
+    @JsonIgnore
+    @OneToOne(mappedBy = "condutor")
+    private User user;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "condutor_role",
+            joinColumns = @JoinColumn(name = "condutor_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
 
-    /*
-    public List<Carga> getCarga() {
-        return carga;
+    //IGNORE LOMBOK
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
-    public void setCarga(List<Carga> carga) {
-        this.carga = carga;
 
 
-    }
-
-
-     */
 }
+

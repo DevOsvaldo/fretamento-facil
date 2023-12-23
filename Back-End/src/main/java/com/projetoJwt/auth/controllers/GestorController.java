@@ -32,10 +32,12 @@ public class GestorController {
     @PostMapping("/cadastro")
     @ResponseStatus(code = HttpStatus.CREATED)
     public Gestor criarPerfilAdmin(@RequestBody Gestor gestor){
+
+
         return gestorService.cadastrarPerfilAdmin(gestor);
     }
     @PostMapping("/inserir")
-    public Gestor inserirCarga(Long cargaId, Long gestorId){
+    public Gestor inserirCarga(@RequestParam Long cargaId, Long gestorId){
         return gestorService.inserirCarga(cargaId, gestorId);
     }
     @PutMapping("/modificar/{cargaId}")
@@ -51,8 +53,8 @@ public class GestorController {
     }
 
     @DeleteMapping("/condutor/{id}")
-    public void deletarCondutor(@PathVariable  Long id) {
-        condutorService.deletarCondutor(id);
+    public void deletarCondutorById(@PathVariable  Long id) {
+        condutorService.deletarCondutorById(id);
     }
 
 }
