@@ -1,9 +1,14 @@
 package com.projetoJwt.auth.domain.user;
 
+import com.projetoJwt.auth.domain.model.Condutor;
+import com.projetoJwt.auth.domain.model.Gestor;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -19,6 +24,16 @@ public class Role {
     @Column(length = 20)
     private UserRole roleName;
 
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    private Set<Condutor> condutores = new HashSet<>();
+
+
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<User> users = new HashSet<>();
+
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    private Set<Gestor> gestores = new HashSet<>();
+
     public Role() {
 
     }
@@ -33,3 +48,5 @@ public class Role {
         return roleName;
     }
 }
+
+

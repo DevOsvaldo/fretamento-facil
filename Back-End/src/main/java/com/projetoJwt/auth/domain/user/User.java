@@ -1,6 +1,7 @@
 package com.projetoJwt.auth.domain.user;
 
 import com.projetoJwt.auth.domain.model.Condutor;
+import com.projetoJwt.auth.domain.model.Gestor;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -43,6 +44,9 @@ public class User implements UserDetails, Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "condutor_id")
     private Condutor condutor;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "gestor_id")
+    private Gestor gestor;
 
 
     public User(String login, String password, UserRole role){
@@ -62,6 +66,14 @@ public class User implements UserDetails, Serializable {
 
     public void setCondutor(Condutor condutor) {
         this.condutor = condutor;
+    }
+
+    public void setGestor(Gestor gestor) {
+        this.gestor = gestor;
+    }
+
+    public Gestor getGestor() {
+        return gestor;
     }
 
     @Override
