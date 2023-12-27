@@ -1,0 +1,39 @@
+mat-toolbar {
+  background: linear-gradient(115deg, #138e99 10%, #04e3ba 90%);
+  box-shadow: 6px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 1px 2px 1px black;
+}
+a {
+  text-decoration: none;
+
+  color: inherit;
+
+}
+
+a:hover {
+  text-decoration: none;
+
+}
+mat-icon
+{
+  text-align: left;
+  margin: 5px;
+  cursor: pointer;
+}
+.example-spacer {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+@media (max-width: 400px) {
+  .mat-toolbar{
+    width: 100%;
+  }
+  mat-icon{
+    display: none;
+  }
+
+}
