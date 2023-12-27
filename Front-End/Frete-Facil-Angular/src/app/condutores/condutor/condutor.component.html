@@ -1,0 +1,80 @@
+<div class="parent" *ngIf="ready">
+  <div class="container">
+    <div class="text">
+      Cadastro Motorista
+    </div>
+
+    <form [formGroup]="condutorForm" (ngSubmit)="submitForm()" class="min-width">
+      <div class="form-row full-width">
+        <div class="input-data login">
+          <input formControlName="login" type="text" [disabled]="isEditing">
+          <div class="underline"></div>
+          <label for="login">Login:</label>
+        </div>
+        <div class="input-data password">
+          <input formControlName="password" type="text" [disabled]="isEditing">
+          <div class="underline"></div>
+          <label for="password">Password:</label>
+        </div>
+
+        <div class="input-data">
+          <input formControlName="nome" type="text" required pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+">
+          <div class="underline"></div>
+          <label for="">Nome</label>
+        </div>
+        <div class="input-data">
+          <input formControlName="cpf" type="text" required
+            pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" placeholder="xxx.xxx.xxx-xx">
+          <div class="underline"></div>
+          <label for="CPF">CPF:</label>
+        </div>
+        <div class="input-data">
+          <input formControlName="endereco" type="text" required>
+          <div class="underline"></div>
+          <label for="endereco">Endereço</label>
+        </div>
+      </div>
+      <div class="form-row full-width">
+        <div class="input-data">
+          <select formControlName="tipo_Veiculo">
+            <option value="" disabled selected>Tipo de Veiculo</option>
+            <option *ngFor="let tipo of tiposVeiculo" [value]="tipo">{{ tipo }}</option>
+          </select>
+        </div>
+        <div class="input-data">
+          <select formControlName="capacidadeVeiculo" [disabled]="!condutorForm.get('capacidadeVeiculo')?.enabled">
+            <option value="" disabled selected>Capacidade Veiculo</option>
+            <option *ngFor="let capacidade of capacidadesPorTipoVeiculo[condutorForm.get('tipo_Veiculo')?.value]"
+              [value]="capacidade">
+              {{ capacidade }}
+            </option>
+          </select>
+        </div>
+        <div class="input-data">
+          <select id="option" formControlName="situacaoCondutor">
+            <option value="" disabled selected>SituaçãoMotorista</option>
+            <option value="AGUARDANDO">Aguardando</option>
+            <option value="CARREGANDO">Em Carregamento</option>
+            <option value="EM_VIAGEM">Em viagem</option>
+            <option value="NO_CLIENTE">No Cliente</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="form-row submit-btn">
+        <div class="input-data button-sub">
+          <div class="inner"></div>
+          <input type="submit" value="submit">
+        </div>
+      </div>
+
+      <div class="buttons">
+
+        <button mat-raised-button (click)="onReset()">Resetar</button>
+        <button mat-raised-button (click)="onBack()" color="accent">Voltar</button>
+      </div>
+
+    </form>
+  </div>
+</div>
