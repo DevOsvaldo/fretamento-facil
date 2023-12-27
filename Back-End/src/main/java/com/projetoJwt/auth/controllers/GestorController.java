@@ -1,5 +1,6 @@
 package com.projetoJwt.auth.controllers;
 
+import com.projetoJwt.auth.domain.dto.GestorDTO;
 import com.projetoJwt.auth.domain.model.Carga;
 import com.projetoJwt.auth.domain.model.Gestor;
 import com.projetoJwt.auth.services.CargaService;
@@ -31,10 +32,8 @@ public class GestorController {
     }
     @PostMapping("/cadastro")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Gestor criarPerfilAdmin(@RequestBody Gestor gestor){
-
-
-        return gestorService.cadastrarPerfilAdmin(gestor);
+    public Gestor criarPerfilAdmin(@RequestBody GestorDTO gestor){
+        return gestorService.criandoNovoUserGestor(gestor);
     }
     @PostMapping("/inserir")
     public Gestor inserirCarga(@RequestParam Long cargaId, Long gestorId){
