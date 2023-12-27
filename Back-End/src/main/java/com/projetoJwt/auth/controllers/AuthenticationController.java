@@ -43,7 +43,7 @@ public class AuthenticationController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private CondutorService condutorService;
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
     private void createRoleIfNotFound(UserRole role) {
         Optional<Role> optionalRole = roleRepository.findByRoleName(role);
         if (optionalRole.isEmpty()) {
@@ -128,7 +128,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(new MessageResponse("Usuário registrado com sucesso"));
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/changepassword/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     public ResponseEntity updatePassword(
             @PathVariable Long id,
