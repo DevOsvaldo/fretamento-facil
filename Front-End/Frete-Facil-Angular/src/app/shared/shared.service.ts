@@ -17,7 +17,7 @@ export class SharedService {
     this.dadosCompartilhados.next(novosDados);
   }
 
-  // Certifique-se de inicializar essas variáveis com um valor padrão se necessário
+  
   private condutorId: number | null = null;
   private cargaId: number | null = null;
 
