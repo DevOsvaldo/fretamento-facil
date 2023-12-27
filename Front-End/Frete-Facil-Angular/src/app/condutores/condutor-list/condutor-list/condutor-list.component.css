@@ -1,0 +1,77 @@
+.mat-table {
+  overflow: auto;
+  max-height: 600px;
+}
+
+mat-card {
+  width: 80%;
+  margin: 2em auto;
+  text-align: center;
+}
+
+
+.action-column {
+  flex: 75px;
+}
+
+.column-flex {
+  display: flex;
+  flex-direction: column;
+  min-width: 600px;
+}
+
+
+.loading-spinner {
+  padding: 25px;
+  background: rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mat-toolbar{
+  background: linear-gradient(115deg, #56d8e4 10%, #1de9c4 90%);;
+  color: #fff;
+}
+.mat-toolbar span{
+  color:#fff;
+  font-weight: bold;
+}
+
+@media (max-width: 800px) {
+  mat-card {
+    width: 90%;
+    /* Ajuste a largura para telas menores */
+  }
+    .column-flex {
+      display: block;
+
+    }
+  .action-column {
+    flex: 1 0 30px;
+    /* Reduza o tamanho da coluna de ação em telas menores */
+  }
+
+  .mat-table {
+    max-height: none;
+    /* Remova a altura máxima da tabela em telas menores */
+  }
+}
+
+@media (max-width: 600px) {
+  .column-flex{
+    display: block;
+
+  }
+  /* Ocultar algumas colunas em telas menores ou ajustar conforme necessário */
+  .mat-table [matColumnDef="id"],
+  .mat-table [matColumnDef="endereco"],
+  .mat-table [matColumnDef="capacidadeVeiculo"] {
+    display: none;
+  }
+
+  .mat-table [matColumnDef="nome"],
+  .mat-table [matColumnDef="tipo_Veiculo"],
+  .mat-table [matColumnDef="situacaoCondutor"] {
+    display: table-cell;
+  }
+}
