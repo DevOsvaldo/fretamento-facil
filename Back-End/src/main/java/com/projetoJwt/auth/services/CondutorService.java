@@ -12,11 +12,18 @@ import com.projetoJwt.auth.repositories.CargaRepository;
 import com.projetoJwt.auth.repositories.CondutorRepository;
 import com.projetoJwt.auth.repositories.RoleRepository;
 import com.projetoJwt.auth.repositories.UserRepository;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+
+import static com.projetoJwt.auth.controllers.AuthenticationController.LOGGER;
 
 @Service
 public class CondutorService {
@@ -33,63 +40,81 @@ public class CondutorService {
     @Autowired
     private RoleRepository roleRepository;
 
-    private void createRoleIfNotFound(UserRole role) {
-        Optional<Role> optionalRole = roleRepository.findByRoleName(role);
-        if (optionalRole.isEmpty()) {
-            roleRepository.save(new Role(role));
-        }
-    }
+
 
 
     public List<Condutor> findAllCondutor(){
         return condutorRepository.findAll();
     }
-
+    public List<Condutor> findAllActiveCondutores() {
+        return condutorRepository.findByDeletedFalse();
+    }
     public Optional<Condutor> getCondutorById(Long id){
         return condutorRepository.findById(id);
     }
-    public Condutor criarNovoCondutor(Condutor condutor){
 
-        // Salva o novo Condutor no banco de dados
-        return condutorRepository.save(condutor);
-    }
-    public Condutor criarNovoUserCondutor(CondutorDTO condutor){
-        if (repository.findByLogin(condutor.login()) != null) {
+    public Condutor criarNovoUserCondutor(CondutorDTO condutorDto){
+       if (repository.findByLogin(condutorDto.login()) != null) {
             return null;
         }
-        createRoleIfNotFound(UserRole.USER);
-        String encryptedPassword = new BCryptPasswordEncoder().encode(condutor.password());
+
+        String encryptedPassword = new BCryptPasswordEncoder().encode(condutorDto.password());
         Role userRole = roleRepository.findByRoleName(UserRole.USER)
-                .orElseThrow(() -> new RuntimeException("Error: role USER não encontrada"));
+                .orElseGet(() -> roleRepository.save(new Role(UserRole.USER)));
+
         Set<Role> roles = new HashSet<>();
         roles.add(userRole);
-        // Salva o novo Condutor no banco de dados
-        User user = new User(condutor.login(), encryptedPassword, condutor.role());
+        //Salva o novo Condutor no banco de dados
+        User user = new User(condutorDto.login(), encryptedPassword, condutorDto.role());
         user.setRoles(roles);
 
-        repository.save(user);
-        Condutor condutor1 = new Condutor();
-        condutor1.setNome(condutor.nome());
-        condutor1.setEndereco(condutor.endereco());
-        condutor1.setUser(user);
-        condutor1.setCpf(condutor.cpf());
-        condutor1.setTipo_Veiculo(condutor.tipo_Veiculo());
-        condutor1.setCapacidadeVeiculo(condutor.capacidadeVeiculo());
-        condutor1.setSituacaoCondutor(condutor.situacaoCondutor());
-        user.setCondutor(condutor1);
-        condutor1.setRoles(roles);
-        return condutorRepository.save(condutor1);
 
-    }
-    public Condutor atualizarCondutor(Long id, Condutor condutorModificado){
-        if(condutorRepository.existsById(id)){
-            condutorModificado.setId(id);
-            return condutorRepository.save(condutorModificado);
-        } else {
-            throw new RuntimeException("Condutor não encontrado, ID:"+id+" não existe");
-        }
 
+
+
+        Condutor condutor = new Condutor();
+        condutor.setNome(condutorDto.nome());
+        condutor.setEndereco(condutorDto.endereco());
+        condutor.setUser(user);
+        condutor.setCpf(condutorDto.cpf());
+        condutor.setTipo_Veiculo(condutorDto.tipo_Veiculo());
+        condutor.setCapacidadeVeiculo(condutorDto.capacidadeVeiculo());
+        condutor.setSituacaoCondutor(condutorDto.situacaoCondutor());
+        condutor.setRoles(roles);
+        user.setCondutor(condutor);
+
+        // Salvar o Condutor
+        return condutorRepository.save(condutor);
     }
+
+    public Condutor atualizarDadosCondutor(Long id, CondutorDTO condutorDTO) {
+        // Obter o Condutor do banco de dados
+        Condutor condutor = condutorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Condutor não encontrado para o ID: " + id));
+
+        // Atualizar apenas as propriedades específicas do Condutor
+        condutor.setNome(condutorDTO.nome());
+        condutor.setCpf(condutorDTO.cpf());
+        condutor.setEndereco(condutorDTO.endereco());
+        condutor.setTipo_Veiculo(condutorDTO.tipo_Veiculo());
+        condutor.setCapacidadeVeiculo(condutorDTO.capacidadeVeiculo());
+        condutor.setSituacaoCondutor(condutorDTO.situacaoCondutor());
+        // Adicione outras propriedades do Condutor que você deseja atualizar
+
+        // Salvar as alterações no Condutor
+        return condutorRepository.save(condutor);
+    }
+
+    public Condutor atualizarCondutor(@NotNull @Positive Long id, @Valid Condutor condutorModificado){
+        Condutor condutor = condutorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Condutor não encontrada para o ID: " + id + "."));
+        BeanUtils.copyProperties(condutorModificado, condutor, "id","login","password");
+
+        LOGGER.info("UPDATE: "+condutor);
+        return condutorRepository.save(condutor);
+    }
+
+
     public Condutor carregarCarga(Long condutorId, Long cargaId){
         try {
             Condutor condutor = condutorRepository.findById(condutorId)
@@ -123,14 +148,39 @@ public class CondutorService {
             throw new RuntimeException("Não foi possível carregar o produto. Motivo: " + ex.getMessage());
         }
     }
-    //deletando condutor
-    public void deletarCondutorById(Long id){
-        if(condutorRepository.existsById(id)){
-            condutorRepository.deleteById(id);
-        } else {
-            throw  new RuntimeException("Condutor não encontrado com ID: "+id);
-        }
+
+    public void softDeleteCondutorById(Long id) {
+        Condutor condutor = condutorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Condutor não encontrado para o ID: " + id));
+
+        // Marcar o Condutor como excluído
+        condutor.setDeleted(true);
+        condutorRepository.save(condutor);
     }
+    public List<Condutor> listarCondutoresExcluidos(){
+        return condutorRepository.findByDeletedTrue();
+    }
+    public Condutor reativarCondutor(Long id){
+        Condutor condutor = condutorRepository.findById(id).orElseThrow(()->
+                new RuntimeException("Condutor não encontrado!"));
+
+        //Verificação se o condutor está marcado como excluido
+        if(!condutor.isDeleted()){
+            throw new RuntimeException("O condutor já está ativo!");
+        }
+        //Atualizando o status para ativo
+        condutor.setDeleted(false);
+
+        //Salvar as alterações no Condutor
+        return condutorRepository.save(condutor);
+    }
+    //deletando condutor
+    public void deletarCondutorById(Long id) {
+        condutorRepository.delete(condutorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Sem id"+id)));
 
     }
+}
+
+
 
