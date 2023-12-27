@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { GestorService } from '../services/gestor.service';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
@@ -18,14 +19,14 @@ export class GestorFormComponent implements OnInit {
   constructor(
     private gestorService: GestorService,
     private formBuilder: NonNullableFormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) {}
   ngOnInit(): void {
     this.iniciaForm();
   }
 
   iniciaForm() {
-    console.log('INICIA FORM');
     this.gestorForm = this.formBuilder.group({
       login: ['', Validators.required],
       password: ['', Validators.required],
@@ -54,9 +55,9 @@ export class GestorFormComponent implements OnInit {
     }
   }
   onBack() {
-    throw new Error('Method not implemented.');
+    this.location.back();
   }
   onReset() {
-    throw new Error('Method not implemented.');
+    this.gestorForm.reset();
   }
 }
