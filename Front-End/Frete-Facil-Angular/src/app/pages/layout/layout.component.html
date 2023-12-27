@@ -1,0 +1,25 @@
+<div class="caixao">
+
+  <mat-toolbar color="primary">
+    <button mat-icon-button [matMenuTriggerFor]="menu" color="basic"><mat-icon>menu</mat-icon></button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onViewGest()">Criar Perfil Moderador</button>
+      <button mat-menu-item (click)="onViewMot()">Visualizar Motoristas</button>
+      <button mat-menu-item (click)="onViewCarg()">Visualizar Cargas</button>
+
+    </mat-menu>
+    <span class="interface">INTERFACE</span>
+    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
+    <span class="example-spacer"></span>
+    <button mat-raised-button (click)="logout()">Logout</button>
+  </mat-toolbar>
+
+  <div class="example-button-row">
+    <div class="local">
+      <button mat-raised-button (click)="onViewMot()">Visualizar Motoristas</button>
+      <button mat-raised-button (click)="onViewGest()">Criar Perfil Moderador</button>
+      <button mat-raised-button color="primary" (click)="onViewCarg()">Visualizar Cargas</button>
+    </div>
+    <router-outlet></router-outlet>
+
+  </div>

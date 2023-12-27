@@ -1,0 +1,53 @@
+.example-spacer{
+  flex: 1 1 auto;
+}
+.interface{
+  text-shadow: 2px 2px 5px black;
+}
+mat-icon{
+  text-shadow: 2px 2px 5px black;
+}
+.local
+{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 50vh;
+}
+.local button{
+  width: 300px;
+  height: 200px;
+  background: transparent;
+}
+.local button:hover{
+  background: whitesmoke;
+  color: black;
+}
+mat-toolbar
+{
+  background: rgb(226, 222, 222);
+}
+
+@media (max-width: 700px) {
+  .local {
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+
+}
+
+@media (max-width: 310px) {
+  .local {
+    margin-top: 20px;
+  }
+
+  .local button {
+    margin: 8px;
+    width: 150px;
+    height: 180px;
+    background: rgba(0, 0, 0, 0.407);
+
+  }
+}
+
