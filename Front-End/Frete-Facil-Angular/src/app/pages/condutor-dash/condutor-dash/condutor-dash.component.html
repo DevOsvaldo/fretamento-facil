@@ -1,0 +1,36 @@
+<div class="parent">
+  <div class="profile-box" *ngIf="condutor">
+    <div class="menu-icon">
+      <button style="color:#fff" mat-button [matMenuTriggerFor]="menu">Menu</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onEdit(condutor)">Editar Informações</button>
+        <button mat-menu-item (click)="newPassword()">Atualizar senha</button>
+      </mat-menu>
+    </div>
+    <i class="fa-solid fa-arrow-right-from-bracket" (click)="logoutOff()"></i>
+    <img src="/assets/profile/user.png" alt="" class="profile-pic">
+    <h3 class="condutor-name">Motorista: {{condutor.nome}}</h3>
+    <label><strong>CPF:</strong> {{ condutor.cpf }}</label><br>
+    <label><strong>Tipo de Veiculo:</strong>{{condutor.tipo_Veiculo}}</label><br>
+    <label><strong>Endereço:</strong> {{ condutor.endereco }}</label><br>
+    <label><strong>Situação Atual:</strong></label><br>
+    <div *ngIf="!showSituacaoUpdate" class="situation">
+      <mat-form-field class="form-situation">
+        <mat-label>Selecione a Situação Atual</mat-label>
+        <mat-select [(ngModel)]="condutor.situacaoCondutor" name="situacaoCondutor">
+          <mat-option value="AGUARDANDO">Aguardando</mat-option>
+          <mat-option value="EM_VIAGEM">Em viagem</mat-option>
+          <mat-option value="NO_CLIENTE">No cliente</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button (click)="modificarSituacao(condutor.id, condutor.situacaoCondutor)">Atualizar
+        Situação</button>
+    </div>
+    <div *ngIf="showPasswordUpdate" class="input-senha">
+      <input type="password" [(ngModel)]="password" placeholder="Nova Senha" [ngClass]="{'active': password !== ''}" />
+      <button class="pass-button" (click)="updatePassword(password)">Atualizar Senha</button>
+    </div>
+  </div>
+
+
+</div>

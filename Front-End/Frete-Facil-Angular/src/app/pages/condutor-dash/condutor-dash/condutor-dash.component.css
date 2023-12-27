@@ -1,0 +1,66 @@
+.parent{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.condutor-name{
+  font-size: 25px;
+}
+.profile-box{
+  background: #37034f;
+  text-align: center;
+  padding: 40px 90px;
+  color: #fff;
+  position: relative;
+  border-radius: 20px;
+}
+.menu-icon{
+  width: 25px;
+  position: absolute;
+  left: 40px;
+  top: 40px;
+  color: #fff;
+}
+.mat-mdc-menu-trigger{
+ box-shadow: -2px 2px 1px white;
+}
+.fa-solid{
+  width: 25px;
+  position: absolute;
+  right:40px;
+  top: 40px;
+  color: #fff;
+  cursor: pointer;
+}
+.setting-icon a{
+  color: inherit;
+  text-decoration: none;
+}
+.profile-pic{
+  width: 150px;
+  border-radius: 50%;
+  background-color: #fff;
+  padding: 6px;
+}
+
+.pass-button{
+  background: lightblue;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  padding: 5px;
+}
+.input-senha input{
+  margin-top: 35px;
+  border:none ;
+  border-radius: 5px;
+  padding: 5px;
+  color: #37034f;
+
+}
+.situation{
+  display: flex;
+  flex-direction: column;
+}
