@@ -1,15 +1,21 @@
 package com.projetoJwt.auth.services;
 
 
+import com.projetoJwt.auth.domain.dto.GestorDTO;
 import com.projetoJwt.auth.domain.model.*;
-import com.projetoJwt.auth.repositories.CargaRepository;
-import com.projetoJwt.auth.repositories.CondutorRepository;
-import com.projetoJwt.auth.repositories.GestorRepository;
+import com.projetoJwt.auth.domain.user.Role;
+import com.projetoJwt.auth.domain.user.User;
+import com.projetoJwt.auth.domain.user.UserRole;
+import com.projetoJwt.auth.repositories.*;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class GestorService {
@@ -17,14 +23,45 @@ public class GestorService {
     private final CondutorRepository condutorRepository;
     private final CargaRepository cargaRepository;
 
-    public GestorService(GestorRepository gestorRepository, CondutorRepository condutorRepository, CargaRepository cargaRepository) {
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    @Autowired
+    private  UserService userService;
+
+    public GestorService(GestorRepository gestorRepository, CondutorRepository condutorRepository, CargaRepository cargaRepository, UserRepository userRepository, RoleRepository roleRepository) {
         this.gestorRepository = gestorRepository;
         this.condutorRepository = condutorRepository;
         this.cargaRepository = cargaRepository;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
-    public Gestor cadastrarPerfilAdmin(Gestor gestor) {
+  /*  public Gestor cadastrarPerfilAdmin(Gestor gestor) {
+
+
         return gestorRepository.save(gestor);
+    }*/
+    public Gestor criandoNovoUserGestor(GestorDTO gestorDTO){
+        String encryptedPassword = new BCryptPasswordEncoder().encode(gestorDTO.password());
+        Role userRole = roleRepository.findByRoleName(UserRole.MOD).
+                orElseGet(() -> roleRepository.save(new Role(UserRole.MOD)));
+        Set<Role> roles = new HashSet<>();
+        roles.add(userRole);
+
+        User user = new User(gestorDTO.login(),encryptedPassword,gestorDTO.role());
+        user.setRoles(roles);
+
+
+        Gestor gestor = new Gestor();
+        gestor.setNome(gestorDTO.nome());
+        gestor.setCpf(gestorDTO.cpf());
+        gestor.setCargo(gestorDTO.cargo());
+        gestor.setUser(user);
+        gestor.setRoles(roles);
+        user.setGestor(gestor);
+
+        return gestorRepository.save(gestor);
+
     }
     public List<Gestor> buscarGestor(){
         return gestorRepository.findAll();

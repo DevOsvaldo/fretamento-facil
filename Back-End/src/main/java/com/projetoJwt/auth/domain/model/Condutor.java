@@ -23,6 +23,9 @@ public class Condutor {
     private String tipo_Veiculo;
     private Double capacidadeVeiculo;
 
+    @Column(name = "deleted")
+    private boolean deleted;
+
     @Enumerated(EnumType.STRING)
     private SituacaoCondutor situacaoCondutor;
 
@@ -34,10 +37,10 @@ public class Condutor {
             inverseJoinColumns = @JoinColumn(name = "produtoCarga_id"))
     private List<Carga> carga ;
     @JsonIgnore
-    @OneToOne(mappedBy = "condutor")
+    @OneToOne(mappedBy = "condutor",  cascade = CascadeType.ALL, orphanRemoval = true)
     private User user;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "condutor_role",
             joinColumns = @JoinColumn(name = "condutor_id"),
@@ -45,11 +48,11 @@ public class Condutor {
     )
     private Set<Role> roles = new HashSet<>();
 
-
     //IGNORE LOMBOK
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
 
 
 }

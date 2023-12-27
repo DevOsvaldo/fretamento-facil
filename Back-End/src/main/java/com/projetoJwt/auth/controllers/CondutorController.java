@@ -21,7 +21,7 @@ public class CondutorController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Condutor> findall(){
-        return condutorService.findAllCondutor();
+        return condutorService.findAllActiveCondutores();
     }
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -29,6 +29,11 @@ public class CondutorController {
         Optional<Condutor> condutorOptional = condutorService.getCondutorById(id);
         return condutorOptional.map(condutor -> new ResponseEntity<>(condutor, HttpStatus.OK)).
                 orElseGet(()-> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+    @GetMapping("/excluidos")//Endpoint para obter a lista de Condutores marcados como Excluidos
+    public ResponseEntity<List<Condutor>> listarCondutoresExcluidos(){
+        List<Condutor> condutoresExcluidos = condutorService.listarCondutoresExcluidos();
+        return new ResponseEntity<>(condutoresExcluidos, HttpStatus.OK);
     }
     //POST
     @PostMapping("/cadastroUser")
@@ -41,21 +46,18 @@ public class CondutorController {
     public Condutor carregarCarga(@RequestParam Long condutorId, @RequestParam Long cargaId){
         return condutorService.carregarCarga(condutorId, cargaId);
     }
-    @PostMapping("/cadastro")
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public Condutor cadastroMotorista(@RequestBody @Valid Condutor condutor){
-        return condutorService.criarNovoCondutor(condutor);
-    }
+
     //PUT
-    @PutMapping("/{id}")
-    public ResponseEntity<Condutor> modificarCadastro(@PathVariable Long id, @RequestBody @Valid Condutor condutor) {
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<Condutor> atualizarCondutor(@PathVariable Long id, @RequestBody CondutorDTO condutorDTO) {
         try {
-            Condutor condutorAtualizado = condutorService.atualizarCondutor(id, condutor);
-            return new ResponseEntity<>(condutorAtualizado, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            Condutor condutorAtualizado = condutorService.atualizarDadosCondutor(id, condutorDTO);
+            return ResponseEntity.ok(condutorAtualizado);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
     @PutMapping("/situacao/{id}")
     public ResponseEntity<Condutor> modificarSituacao(@PathVariable Long id, @RequestBody Condutor condutorSituacao){
        return condutorService.getCondutorById(id).map(condutor -> {
@@ -65,11 +67,16 @@ public class CondutorController {
        }).orElse(ResponseEntity.notFound().build());
 
     }
+    @PutMapping("/reativar/{id}")
+    public ResponseEntity<Condutor> reativarCondutor(@PathVariable Long id){
+        Condutor condutorReativado = condutorService.reativarCondutor(id);
+        return new ResponseEntity<>(condutorReativado, HttpStatus.OK);
+    }
 
     //DELETE
-    @DeleteMapping("/condutor/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deletarCondutor(@PathVariable  Long id) {
-        condutorService.deletarCondutorById(id);
+        condutorService.softDeleteCondutorById(id);
     }
 
 }
