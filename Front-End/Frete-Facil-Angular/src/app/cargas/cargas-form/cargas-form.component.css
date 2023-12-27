@@ -1,0 +1,25 @@
+mat-toolbar{
+  background: linear-gradient(115deg, #138e99 10%, #04e3ba 90%);
+}
+
+mat-card{
+  max-width: 45%;
+  margin: 2em auto;
+  text-align: center;
+
+}
+
+
+mat-card-actions {
+  margin-top: 30px;
+  justify-content: center;
+}
+.full-width {
+  width: 100%;
+
+}
+.min-width{
+  width: 100%;
+  min-width: 250px;
+}
+
