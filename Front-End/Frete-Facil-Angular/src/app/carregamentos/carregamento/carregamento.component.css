@@ -1,0 +1,22 @@
+.example-card {
+  max-width: 400px;
+  background:#37034f;
+  color: #fff;
+}
+
+
+.example-header-image {
+  background-image: url('/assets/mao-pare.jpg');
+  background-size: cover;
+}
+.flex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:100vh;
+  background: #fff;
+}
+button{
+  background: #ffffffb8;
+  margin: 5px;
+}
