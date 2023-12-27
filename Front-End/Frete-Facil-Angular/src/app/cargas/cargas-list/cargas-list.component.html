@@ -1,0 +1,74 @@
+<mat-table [dataSource]="cargas">
+  <!---ID de cargas-->
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef> Cliente: </mat-header-cell>
+    <mat-cell *matCellDef="let cargas"> {{cargas.id}}
+      <mat-icon aria-hidden="false" aria-label="Cliente">{{cargas.id }}</mat-icon>
+    </mat-cell>
+  </ng-container>
+  <!-- Nome do Cliente Column -->
+  <ng-container matColumnDef="nomeCliente">
+    <mat-header-cell *matHeaderCellDef> Cliente: </mat-header-cell>
+    <mat-cell *matCellDef="let cargas"> {{cargas.nomeCliente}}
+      <mat-icon aria-hidden="false" aria-label="Cliente" fontIcon="factory">{{cargas.nomeCliente }}</mat-icon>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Endereço do Cliente Column -->
+  <ng-container matColumnDef="enderecoCliente">
+    <mat-header-cell *matHeaderCellDef> Endereço: </mat-header-cell>
+    <mat-cell *matCellDef="let cargas"> {{cargas.enderecoCliente}}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Peso da Carga Column -->
+  <ng-container matColumnDef="pesoCarga">
+    <mat-header-cell *matHeaderCellDef> Peso da Carga: </mat-header-cell>
+    <mat-cell *matCellDef="let cargas"> {{cargas.pesoCarga | number: '1.3-3'}} </mat-cell>
+  </ng-container>
+
+  <!-- Valor do Frete Column -->
+  <ng-container matColumnDef="valorFrete">
+    <mat-header-cell *matHeaderCellDef> Frete: </mat-header-cell>
+    <mat-cell *matCellDef="let cargas"> {{cargas.valorFrete | number: '1.2-2'}} </mat-cell>
+  </ng-container>
+
+  <!-- Tipo do veiculo Column -->
+  <ng-container matColumnDef="tipoVeiculo">
+    <mat-header-cell *matHeaderCellDef> Tipo do Veiculo: </mat-header-cell>
+    <mat-cell *matCellDef="let cargas"> {{cargas.tipoVeiculo}}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Situação da Carga Column -->
+  <ng-container matColumnDef="situacaoCarga">
+    <mat-header-cell *matHeaderCellDef> Situação da Carga: </mat-header-cell>
+    <mat-cell *matCellDef="let cargas"> {{ cargas.situacaoCarga }} </mat-cell>
+  </ng-container>
+
+  <!---Botões de Ação Adicionar, Editar , Remover(Deletar) e Voltar Pagina-->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef="">
+      <button mat-mini-fab color="primary" aria-label="Adicionar uma carga" (click)="onAdd()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-mini-fab color="primary" aria-label="Voltar pagina" (click)="onWest()">
+        <mat-icon>west</mat-icon>
+      </button>
+    </mat-header-cell>
+
+    <mat-cell *matCellDef="let cargas" class="action-column">
+      <button mat-icon-button color="primary" aria-label="Editar uma carga" (click)="onEdit(cargas)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" aria-label="Deletar uma carga" (click)="onDelete(cargas)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-raised-button (click)="carregarCarga(cargas)">Carregar</button>
+    </mat-cell>
+
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
