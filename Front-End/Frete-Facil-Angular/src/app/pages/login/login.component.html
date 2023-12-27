@@ -1,0 +1,23 @@
+<div class="parent">
+  <div class="main">
+    <input type="checkbox" id="chk" aria-hidden="true">
+    <div class="signup">
+      <form (submit)="onLogin()">
+        <label for="chk" aria-hidden="true">Sign in</label>
+        <input type="text" name="login" [(ngModel)]="loginObj.login" placeholder="Login" required="login"
+          [ngClass]="{ 'error': showLoginError }">
+        <div *ngIf="showLoginError" class="error-message">Por favor, preencha o campo de login.</div>
+        <input type="password" name="password" [(ngModel)]="loginObj.password" placeholder="Password"
+          required="password" [ngClass]="{ 'error': showPasswordError }">
+        <div *ngIf="showPasswordError" class="error-message">Por favor, preencha o campo de senha.</div>
+        <div>
+          <button type="submit" id="signupButton" [disabled]="isSubmitting">Login</button>
+          <div class="error-message" [ngClass]="{'error': showErrorMessage}">
+            <div *ngIf="showErrorMessage" class="error-message">É obrigatório o preenchimento de todos os campos!</div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
