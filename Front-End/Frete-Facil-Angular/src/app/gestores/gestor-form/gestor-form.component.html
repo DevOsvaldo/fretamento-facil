@@ -1,0 +1,43 @@
+<div class="parent">
+  <div class="container">
+    <div class="text">
+      Cadastro Gestor
+    </div>
+    <form [formGroup]="gestorForm" class="min-width">
+      <div class="form-row full-width">
+        <div class="input-data login">
+          <input formControlName="login" type="text">
+          <div class="underline"></div>
+          <label for="login">Login:</label>
+        </div>
+        <div class="input-data password">
+          <input formControlName="password" type="text">
+          <div class="underline"></div>
+          <label for="password">Password:</label>
+        </div>
+
+        <div class="input-data">
+          <input formControlName="nome" type="text" required pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+">
+          <div class="underline"></div>
+          <label for="">Nome</label>
+        </div>
+        <div class="input-data">
+          <input formControlName="cpf" type="text" required
+            pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" placeholder="xxx.xxx.xxx-xx">
+          <div class="underline"></div>
+          <label for="CPF">CPF:</label>
+        </div>
+        <div class="input-data">
+          <input formControlName="cargo" type="text">
+          <div class="underline"></div>
+          <label for="cargo">Cargo</label>
+        </div>
+        <div class="buttons">
+          <button mat-raised-button (click)="submitForm()">Enviar</button>
+          <button mat-raised-button (click)="onReset()">Resetar</button>
+          <button mat-raised-button (click)="onBack()" color="accent">Voltar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
