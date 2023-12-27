@@ -3,7 +3,8 @@ package com.projetoJwt.auth.domain.model;
 public enum SituacaoCondutor {
     AGUARDANDO("Aguardando"),
     CARREGANDO("CARREGANDO"),
-    EMVIAGEM("VIAJANDO");
+    EM_VIAGEM("VIAJANDO"),
+    NO_CLIENTE("NO CLIENTE");
 
 
     private final String descricao;
