@@ -11,6 +11,7 @@ import java.util.Optional;
 @Repository
 public interface CondutorRepository extends JpaRepository<Condutor, Long> {
     List<Condutor> findBySituacaoCondutor(SituacaoCondutor situacaoCondutor);
+    List<Condutor> findByDeletedFalse();
 
-
+    List<Condutor> findByDeletedTrue();
 }
