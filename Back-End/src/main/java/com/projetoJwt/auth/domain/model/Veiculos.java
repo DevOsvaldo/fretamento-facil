@@ -15,5 +15,6 @@ public class Veiculos {
     private String placaCavalo;
     private String placaCarreta;
     private String TipoVeiculo;
+    private Double capacidadeVeiculo;
 
 }
