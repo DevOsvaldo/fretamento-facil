@@ -12,6 +12,7 @@ export class CargasListComponent implements OnInit {
   @Output() edit = new EventEmitter(false);
   @Output() west = new EventEmitter(false);
   @Output() remove = new EventEmitter(false);
+  @Output() gest = new EventEmitter(false);
   @Output() carregar = new EventEmitter(false);
 
   readonly displayedColumns = [
@@ -33,12 +34,16 @@ export class CargasListComponent implements OnInit {
   onWest() {
     this.west.emit(true);
   }
+  gestDash() {
+    this.gest.emit(true);
+  }
   onEdit(carga: Carga) {
     this.edit.emit(carga);
   }
   onDelete(carga: Carga) {
     this.remove.emit(carga);
   }
+
   carregarCarga(carga: Carga) {
     this.carregar.emit(carga);
   }

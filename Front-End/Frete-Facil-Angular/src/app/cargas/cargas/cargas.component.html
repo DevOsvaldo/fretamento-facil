@@ -4,7 +4,7 @@
   </mat-toolbar>
   <div class="mat-elevation-z8 column-flex">
     <app-cargas-list *ngIf="cargas$ | async as cargas; else loading " [cargas]="cargas" (add)="onAdd()"
-      (edit)="onEdit($event)" (remove)="onRemove($event)" (west)="onWest()"
+      (edit)="onEdit($event)" (remove)="onRemove($event)" (west)="onWest() " (gest)="gestDash()"
       (carregar)="carregarCarga($event)"></app-cargas-list>
 
     <ng-template #loading>

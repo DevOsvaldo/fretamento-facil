@@ -4,6 +4,7 @@ import { GestorService } from '../services/gestor.service';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Gestor } from '../models/gestor';
+import { SharedService } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-gestor-form',
@@ -20,10 +21,14 @@ export class GestorFormComponent implements OnInit {
     private gestorService: GestorService,
     private formBuilder: NonNullableFormBuilder,
     private snackBar: MatSnackBar,
+    private shared: SharedService,
     private location: Location
   ) {}
   ngOnInit(): void {
     this.iniciaForm();
+    this.gestorForm.patchValue({
+      cpf: this.shared.gerarCpfFicticio(),
+    });
   }
 
   iniciaForm() {
@@ -32,7 +37,7 @@ export class GestorFormComponent implements OnInit {
       password: ['', Validators.required],
       role: ['MOD'],
       nome: ['', Validators.required],
-      cpf: ['', Validators.required],
+      cpf: '',
       cargo: ['', Validators.required],
     });
   }

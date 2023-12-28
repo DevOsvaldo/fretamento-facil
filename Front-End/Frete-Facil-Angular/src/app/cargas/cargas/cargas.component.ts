@@ -56,6 +56,10 @@ export class CargasComponent implements OnInit {
   onAdd() {
     this.router.navigate(['newcargas'], { relativeTo: this.route });
   }
+  gestDash() {
+    console.log('funcionando');
+    this.router.navigate(['gestor-dash']);
+  }
   onWest() {
     this.location.back();
   }

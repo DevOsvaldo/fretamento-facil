@@ -201,8 +201,10 @@ export class CondutorComponent implements OnInit {
           (endereco) => {
             // Atualize os campos do formulário com os dados do endereço retornado
             this.condutorForm.patchValue({
-              endereco: `Logradouro: ${endereco.logradouro}, Bairro: ${endereco.bairro}, Cidade: ${endereco.localidade},
-               UF: ${endereco.uf}`,
+              endereco: `Logradouro: ${endereco.logradouro},
+                        Bairro: ${endereco.bairro},
+                        Cidade: ${endereco.localidade},
+                        UF: ${endereco.uf}`,
 
               // ... outros campos de endereço que deseja preencher
             });
