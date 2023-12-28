@@ -1,39 +1,34 @@
-
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
-  private dadosCompartilhados = new BehaviorSubject<{
-    cargaId?: number;
-    condutorId?: number;
-  }>({});
+  private readonly viaCepBaseUrl = 'https://viacep.com.br/ws';
 
-  dadosCompartilhados$ = this.dadosCompartilhados.asObservable();
+  constructor(private http: HttpClient) {}
 
-  atualizarDados(novosDados: { cargaId?: number; condutorId?: number }): void {
-    this.dadosCompartilhados.next(novosDados);
+  buscarEnderecoPorCep(cep: string): Observable<any> {
+    const url = `${this.viaCepBaseUrl}/${cep}/json`;
+    return this.http.get(url);
   }
 
-  
-  private condutorId: number | null = null;
-  private cargaId: number | null = null;
+  gerarCpfFicticio(): string {
+    const randomDigit = (): number => Math.floor(Math.random() * 10);
+    const cpfNumbers: number[] = Array.from({ length: 9 }, randomDigit);
 
-  setCondutorId(id: number | undefined): void {
-    this.condutorId = id !== undefined ? id : null;
-  }
+    const digito1: number =
+      cpfNumbers.reduce((acc, digit, index) => acc + digit * (10 - index), 0) %
+      11;
+    cpfNumbers.push(digito1 === 10 ? 0 : digito1);
 
-  getCondutorId(): number | null {
-    return this.condutorId;
-  }
+    const digito2: number =
+      cpfNumbers.reduce((acc, digit, index) => acc + digit * (11 - index), 0) %
+      11;
+    cpfNumbers.push(digito2 === 10 ? 0 : digito2);
 
-  setCargaId(id: number | undefined): void {
-    this.cargaId = id !== undefined ? id : null;
-  }
-
-  getCargaId(): number | null {
-    return this.cargaId;
+    return cpfNumbers.join('');
   }
 }
