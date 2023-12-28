@@ -82,12 +82,6 @@ export class CondutorComponent implements OnInit {
     this.condutorForm.patchValue({
       cpf: [
         this.sharedService.gerarCpfFicticio(), // Preencher automaticamente com um CPF fictício
-        [
-          Validators.required,
-          Validators.pattern(
-            /(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2})/
-          ),
-        ],
       ],
     });
   }
@@ -208,7 +202,7 @@ export class CondutorComponent implements OnInit {
           (endereco) => {
             // Atualize os campos do formulário com os dados do endereço retornado
             this.condutorForm.patchValue({
-              endereco: endereco.logradouro,
+              endereco: `Logradouro: ${endereco.logradouro}, Bairro: ${endereco.bairro}, Cidade: ${endereco.localidade}, UF: ${endereco.uf}`,
 
               // ... outros campos de endereço que deseja preencher
             });
@@ -229,7 +223,4 @@ export class CondutorComponent implements OnInit {
   onBack() {
     this.router.navigate(['condutorlist']);
   }
-}
-function gerarCpfFicticio(): string {
-  throw new Error('Function not implemented.');
 }
