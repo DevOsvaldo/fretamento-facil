@@ -18,7 +18,6 @@ import { Condutor } from './../models/condutor';
   styleUrls: ['./condutor.component.css'],
 })
 export class CondutorComponent implements OnInit {
-  //dados: string[] = [];
   ready: boolean = false;
   condutorForm!: FormGroup;
   condutor = {} as Condutor;
@@ -44,11 +43,7 @@ export class CondutorComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: NonNullableFormBuilder
-  ) {
-    this.sharedService.dadosCompartilhados$.subscribe((dados) => {
-      console.log('Estes são os dados: ' + dados);
-    });
-  }
+  ) {}
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -83,6 +78,17 @@ export class CondutorComponent implements OnInit {
     });
     this.condutorForm.get('tipo_Veiculo')?.valueChanges.subscribe((value) => {
       this.atualizarHabilitacaoCapacidadeVeiculo(value);
+    });
+    this.condutorForm.patchValue({
+      cpf: [
+        this.sharedService.gerarCpfFicticio(), // Preencher automaticamente com um CPF fictício
+        [
+          Validators.required,
+          Validators.pattern(
+            /(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2})/
+          ),
+        ],
+      ],
     });
   }
 
@@ -122,7 +128,8 @@ export class CondutorComponent implements OnInit {
       password: ['', Validators.required],
       role: ['USER'],
       nome: ['', Validators.required],
-      cpf: ['', Validators.required],
+      cpf: [],
+      cep: ['', Validators.required],
       endereco: ['', Validators.required],
       tipo_Veiculo: ['', Validators.required],
       capacidadeVeiculo: [{ value: '', disabled: true }, Validators.required],
@@ -191,10 +198,38 @@ export class CondutorComponent implements OnInit {
       }
     }
   }
+  buscarEnderecoPorCep() {
+    const cepControl = this.condutorForm.get('cep');
+    if (cepControl && cepControl.value && cepControl.value.length === 8) {
+      const cep = cepControl.value;
+      if (cep && cep.length === 8) {
+        // Certifique-se de que o CEP tem 8 dígitos
+        this.sharedService.buscarEnderecoPorCep(cep).subscribe(
+          (endereco) => {
+            // Atualize os campos do formulário com os dados do endereço retornado
+            this.condutorForm.patchValue({
+              endereco: endereco.logradouro,
+
+              // ... outros campos de endereço que deseja preencher
+            });
+          },
+          (error) => {
+            console.error('Erro ao buscar endereço:', error);
+          }
+        );
+      }
+    } else {
+      console.error('CEP inválido ou incompleto.');
+    }
+  }
+
   onReset() {
     this.condutorForm.reset();
   }
   onBack() {
     this.router.navigate(['condutorlist']);
   }
+}
+function gerarCpfFicticio(): string {
+  throw new Error('Function not implemented.');
 }

@@ -52,6 +52,7 @@ export class GestorFormComponent implements OnInit {
         });
         console.log('Dados do gestor: ', response);
       });
+      this.onBack();
     }
   }
   onBack() {
