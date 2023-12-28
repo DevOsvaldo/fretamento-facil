@@ -7,6 +7,7 @@ import com.projetoJwt.auth.domain.user.Role;
 import com.projetoJwt.auth.domain.user.User;
 import com.projetoJwt.auth.domain.user.UserRole;
 import com.projetoJwt.auth.repositories.*;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,12 +37,11 @@ public class GestorService {
         this.roleRepository = roleRepository;
     }
 
-  /*  public Gestor cadastrarPerfilAdmin(Gestor gestor) {
 
-
-        return gestorRepository.save(gestor);
-    }*/
-    public Gestor criandoNovoUserGestor(GestorDTO gestorDTO){
+    public Gestor criandoNovoUserGestor(GestorDTO gestorDTO) {
+        if (userRepository.findByLogin(gestorDTO.login()) != null) {
+            return null;
+        }
         String encryptedPassword = new BCryptPasswordEncoder().encode(gestorDTO.password());
         Role userRole = roleRepository.findByRoleName(UserRole.MOD).
                 orElseGet(() -> roleRepository.save(new Role(UserRole.MOD)));
@@ -62,6 +62,12 @@ public class GestorService {
 
         return gestorRepository.save(gestor);
 
+
+    }
+
+    public Gestor findById(Long id){
+        return gestorRepository.findById(id).orElseThrow(
+                ()->new RuntimeException("Perfil não encontrado"));
     }
     public List<Gestor> buscarGestor(){
         return gestorRepository.findAll();
@@ -115,5 +121,9 @@ public class GestorService {
             informacoes.append("Nenhuma carga está sendo carregada atualmente.\n");
         }
         return informacoes.toString();
+    }
+
+    public Integer getGestorIdByUserId(Long userId) {
+        return gestorRepository.findGestorIdByUserId(userId);
     }
 }

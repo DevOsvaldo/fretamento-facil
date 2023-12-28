@@ -3,12 +3,14 @@ package com.projetoJwt.auth.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.projetoJwt.auth.domain.user.Role;
 import com.projetoJwt.auth.domain.user.User;
+import com.projetoJwt.auth.domain.user.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 
 @Data
 @Entity
@@ -37,6 +39,13 @@ public class Gestor {
     )
     private Set<Role> roles = new HashSet<>();
 
+    public Gestor(){}
+    public Gestor(String nome, String cpf, String cargo, User user) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.cargo = cargo;
+        this.user = user;
+    }
 
     public void setCargas(List<Carga> cargas){
         this.cargas = cargas;
@@ -46,7 +55,12 @@ public class Gestor {
             }
         }
     }
-   /* public void addModeradorRole() {
-        roles.add(new Role(UserRole.MODERADOR));
-    }*/
+   public void addModeradorRole() {
+        roles.add(new Role(UserRole.MOD));
+    }
+
+    public Set<Role> getRoles() {
+
+        return roles;
+    }
 }
