@@ -25,8 +25,8 @@ public class GestorController {
         this.condutorService = condutorService;
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<Integer> getGestorIdByUserId(@PathVariable Long userId) {
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Integer> getGestorIdByUserId(@RequestParam Long userId) {
         Integer gestorId = gestorService.getGestorIdByUserId(userId);
         if (gestorId != null) {
             return ResponseEntity.ok(gestorId);
