@@ -29,6 +29,9 @@ export class SharedService {
       11;
     cpfNumbers.push(digito2 === 10 ? 0 : digito2);
 
-    return cpfNumbers.join('');
+    // Adiciona pontos e traço para formatar o CPF
+    return cpfNumbers
+      .join('')
+      .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
   }
 }
