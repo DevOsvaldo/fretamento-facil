@@ -25,7 +25,20 @@ public class GestorController {
         this.condutorService = condutorService;
     }
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<Integer> getGestorIdByUserId(@PathVariable Long userId) {
+        Integer gestorId = gestorService.getGestorIdByUserId(userId);
+        if (gestorId != null) {
+            return ResponseEntity.ok(gestorId);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
+    @GetMapping("/{id}")
+    public Gestor findById(@PathVariable Long id){
+        return  gestorService.findById(id);
+    }
     @GetMapping
     public List<Gestor> findAll(){
         return gestorService.buscarGestor();
