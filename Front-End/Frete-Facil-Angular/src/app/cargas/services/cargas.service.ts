@@ -16,16 +16,25 @@ export class CargasService {
     }),
   };
 
-
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   findAll() {
-    return this.httpClient.get<Carga[]>(this.API).pipe(
-      map((cargaslist:Carga[]) => cargaslist.filter(carga => carga.situacaoCarga === 'Aguardando' || carga.situacaoCarga ==='Atendida'))
-    );
+    return this.httpClient
+      .get<Carga[]>(this.API)
+      .pipe(
+        map((cargaslist: Carga[]) =>
+          cargaslist.filter(
+            (carga) =>
+              carga.situacaoCarga === 'AGUARDANDO' ||
+              carga.situacaoCarga === 'ATENDIDA'
+          )
+        )
+      );
   }
-  getById(id: number):Observable<Carga> {
-    return this.httpClient.get<Carga>(`${this.API}/${id}`).pipe(retry(2), catchError(this.handleError.bind(this)));
+  getById(id: number): Observable<Carga> {
+    return this.httpClient
+      .get<Carga>(`${this.API}/${id}`)
+      .pipe(retry(2), catchError(this.handleError.bind(this)));
   }
 
   saveCarga(record: Partial<Carga>) {

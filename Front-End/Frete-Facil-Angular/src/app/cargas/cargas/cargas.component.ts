@@ -18,7 +18,6 @@ import { CargasService } from '../services/cargas.service';
   styleUrl: './cargas.component.scss',
 })
 export class CargasComponent implements OnInit {
-  dados!: string;
   cargas$!: Observable<Carga[]>;
   cargaId: number | undefined;
 
@@ -30,11 +29,7 @@ export class CargasComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private snackBar: MatSnackBar
-  ) {
-    this.sharedService.dadosCompartilhados$.subscribe((dados) => {
-      dados = dados;
-    });
-  }
+  ) {}
   refresh() {
     this.cargas$ = this.cargasService.findAll().pipe(
       catchError((error) => {

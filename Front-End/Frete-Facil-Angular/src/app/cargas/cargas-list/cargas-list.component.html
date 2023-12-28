@@ -1,7 +1,7 @@
 <mat-table [dataSource]="cargas">
   <!---ID de cargas-->
   <ng-container matColumnDef="id">
-    <mat-header-cell *matHeaderCellDef> Cliente: </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef> Identificador da Carga: </mat-header-cell>
     <mat-cell *matCellDef="let cargas"> {{cargas.id}}
       <mat-icon aria-hidden="false" aria-label="Cliente">{{cargas.id }}</mat-icon>
     </mat-cell>
