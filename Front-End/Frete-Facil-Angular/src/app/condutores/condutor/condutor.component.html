@@ -23,8 +23,7 @@
           <label for="">Nome</label>
         </div>
         <div class="input-data">
-          <input formControlName="cpf" type="text" required
-            pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" placeholder="xxx.xxx.xxx-xx">
+          <input formControlName="cpf" type="text" placeholder="xxx.xxx.xxx-xx">
           <div class="underline"></div>
           <label for="CPF">CPF:</label>
         </div>
@@ -34,7 +33,7 @@
           <label for="cep">CEP:</label>
         </div>
         <div class="input-data ">
-          <button type="button" (click)="buscarEnderecoPorCep()">Buscar Endereço por CEP</button>
+          <button type="button" (click)="buscarEnderecoPorCep()" class="busca">Buscar Endereço por CEP</button>
         </div>
         <div class="input-data">
           <input formControlName="endereco" type="text" required>
