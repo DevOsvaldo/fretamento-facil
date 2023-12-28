@@ -74,6 +74,7 @@ public class CondutorService {
 
         Condutor condutor = new Condutor();
         condutor.setNome(condutorDto.nome());
+        condutor.setCep(condutorDto.cep());
         condutor.setEndereco(condutorDto.endereco());
         condutor.setUser(user);
         condutor.setCpf(condutorDto.cpf());
@@ -95,6 +96,7 @@ public class CondutorService {
         // Atualizar apenas as propriedades específicas do Condutor
         condutor.setNome(condutorDTO.nome());
         condutor.setCpf(condutorDTO.cpf());
+        condutor.setCep(condutorDTO.cep());
         condutor.setEndereco(condutorDTO.endereco());
         condutor.setTipo_Veiculo(condutorDTO.tipo_Veiculo());
         condutor.setCapacidadeVeiculo(condutorDTO.capacidadeVeiculo());

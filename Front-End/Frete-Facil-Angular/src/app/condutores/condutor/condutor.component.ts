@@ -80,9 +80,7 @@ export class CondutorComponent implements OnInit {
       this.atualizarHabilitacaoCapacidadeVeiculo(value);
     });
     this.condutorForm.patchValue({
-      cpf: [
-        this.sharedService.gerarCpfFicticio(), // Preencher automaticamente com um CPF fictício
-      ],
+      cpf: this.sharedService.gerarCpfFicticio(), // Preencher automaticamente com um CPF fictício
     });
   }
 
@@ -107,6 +105,7 @@ export class CondutorComponent implements OnInit {
         id: data.id,
         nome: data.nome,
         cpf: data.cpf,
+        cep: data.cep,
         endereco: data.endereco,
         tipo_Veiculo: data.tipo_Veiculo,
         capacidadeVeiculo: data.capacidadeVeiculo,
@@ -122,7 +121,7 @@ export class CondutorComponent implements OnInit {
       password: ['', Validators.required],
       role: ['USER'],
       nome: ['', Validators.required],
-      cpf: [],
+      cpf: '',
       cep: ['', Validators.required],
       endereco: ['', Validators.required],
       tipo_Veiculo: ['', Validators.required],
@@ -202,10 +201,12 @@ export class CondutorComponent implements OnInit {
           (endereco) => {
             // Atualize os campos do formulário com os dados do endereço retornado
             this.condutorForm.patchValue({
-              endereco: `Logradouro: ${endereco.logradouro}, Bairro: ${endereco.bairro}, Cidade: ${endereco.localidade}, UF: ${endereco.uf}`,
+              endereco: `Logradouro: ${endereco.logradouro}, Bairro: ${endereco.bairro}, Cidade: ${endereco.localidade},
+               UF: ${endereco.uf}`,
 
               // ... outros campos de endereço que deseja preencher
             });
+            console.log(endereco);
           },
           (error) => {
             console.error('Erro ao buscar endereço:', error);

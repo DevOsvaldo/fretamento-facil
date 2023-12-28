@@ -20,6 +20,7 @@ public class Condutor {
     private String nome;
     private String cpf;
     private String endereco;
+    private String cep;
     private String tipo_Veiculo;
     private Double capacidadeVeiculo;
 
