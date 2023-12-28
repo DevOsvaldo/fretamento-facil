@@ -54,12 +54,16 @@
       <!---Botões de Ação Adicionar, Editar , Remover(Deletar) e Voltar Pagina-->
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef="">
-          <button mat-mini-fab color="primary" aria-label="Adicionar uma carga" (click)="onAdd()">
-            <mat-icon>add</mat-icon>
-          </button>
-          <button mat-mini-fab color="primary" aria-label="Voltar pagina" (click)="onWest()">
-            <mat-icon>west</mat-icon>
-          </button>
+          <div class="example-button-row">
+            <button mat-mini-fab color="primary" aria-label="Adicionar uma carga" (click)="onAdd()">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-mini-fab color="primary" aria-label="Voltar pagina" (click)="onWest()">
+              <mat-icon>west</mat-icon>
+            </button>
+            <button mat-raised-button (click)="onDash()">Dashboard</button>
+          </div>
+
         </mat-header-cell>
 
         <mat-cell *matCellDef="let cargas" class="action-column">
@@ -67,6 +71,7 @@
             <mat-icon>delete</mat-icon>
           </button>
           <button mat-raised-button (click)="onInserir(cargas)">INSERIR</button>
+
         </mat-cell>
 
       </ng-container>

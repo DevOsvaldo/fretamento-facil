@@ -17,3 +17,25 @@ mat-card {
   justify-content: center;
   align-items: center;
 }
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  max-width: 200px;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}

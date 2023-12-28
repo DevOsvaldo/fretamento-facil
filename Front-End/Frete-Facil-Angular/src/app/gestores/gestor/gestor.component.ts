@@ -21,6 +21,9 @@ export class GestorComponent implements OnInit {
   cargas$!: Observable<Carga[]>;
   cargas: Carga[] = [];
   gestor!: Gestor;
+  token: any;
+  userId!: number;
+  gestorId: number | null = null;
   readonly displayedColumns = [
     'id',
     'nomeCliente',
@@ -41,7 +44,17 @@ export class GestorComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
   ngOnInit(): void {
+    this.token = localStorage.getItem('loginToken');
+    const decodedToken = this.authService.decodeToken(this.token);
+    if (decodedToken) {
+      this.userId = decodedToken.userId;
+      console.log('UserID do token: ', this.userId);
+    }
     this.buscar();
+    console.log('Chamado getGestorById com userId: ', this.userId);
+    this.gestorService.getGestorByUserId(this.userId).subscribe((gestorId) => {
+      this.gestorId = gestorId;
+    });
   }
   buscar() {
     this.cargas$ = this.gestorService.findAll().pipe(
@@ -59,9 +72,17 @@ export class GestorComponent implements OnInit {
 
   onInserir(cargas: Carga) {
     const cargaId = cargas.id;
-    // const gestorId = this.gestor.id;
-    console.log('gestor id: ', 'carga id', cargaId);
-    //this.gestorService.inserirCarga(cargaId,)
+    const gestorId = this.gestorId;
+    console.log('gestor id: ', this.gestorId, 'carga id', cargaId);
+    this.gestorService.inserirCarga(cargaId, gestorId).subscribe((gestor) => {
+      this.snackBar.open('CARGA ATUALIZADA PARA AGUARDANDO', '📦', {
+        duration: 1000,
+        horizontalPosition: 'start',
+        verticalPosition: 'top',
+      });
+      console.log('Gestor inserido', gestor);
+      this.buscar();
+    });
   }
 
   onDelete(carga: Carga) {
@@ -73,7 +94,7 @@ export class GestorComponent implements OnInit {
         this.cargasService.remove(carga.id).subscribe(
           () => {
             this.buscar();
-            this.snackBar.open('Carga Removida com sucesso', 'X', {
+            this.snackBar.open('Carga Removida com sucesso', '📦', {
               duration: 3000,
               verticalPosition: 'top',
               horizontalPosition: 'center',
@@ -89,5 +110,8 @@ export class GestorComponent implements OnInit {
   }
   onWest() {
     this.location.back();
+  }
+  onDash() {
+    this.router.navigate(['dashboard']);
   }
 }
