@@ -10,7 +10,6 @@
   <ng-container matColumnDef="nomeCliente">
     <mat-header-cell *matHeaderCellDef> Cliente: </mat-header-cell>
     <mat-cell *matCellDef="let cargas"> {{cargas.nomeCliente}}
-      <mat-icon aria-hidden="false" aria-label="Cliente" fontIcon="factory">{{cargas.nomeCliente }}</mat-icon>
     </mat-cell>
   </ng-container>
 
@@ -61,14 +60,17 @@
     </mat-header-cell>
 
     <mat-cell *matCellDef="let cargas" class="action-column">
-      <button mat-icon-button color="primary" aria-label="Editar uma carga" (click)="onEdit(cargas)">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button color="warn" aria-label="Deletar uma carga" (click)="onDelete(cargas)">
-        <mat-icon>delete</mat-icon>
-      </button>
-      <button mat-raised-button (click)="carregarCarga(cargas)">Carregar</button>
+      <div class="botoes">
+        <button mat-icon-button color="primary" aria-label="Editar uma carga" (click)="onEdit(cargas)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" aria-label="Deletar uma carga" (click)="onDelete(cargas)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-raised-button (click)="carregarCarga(cargas)">Carregar</button>
+      </div>
     </mat-cell>
+
 
   </ng-container>
 

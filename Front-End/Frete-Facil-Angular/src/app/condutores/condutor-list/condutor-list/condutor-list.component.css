@@ -43,7 +43,10 @@ mat-card {
   color:#fff;
   font-weight: bold;
 }
-
+.mat-column-actions{
+  display: flex;
+  flex-wrap: wrap;
+}
 @media (max-width: 800px) {
   mat-card {
     width: 90%;

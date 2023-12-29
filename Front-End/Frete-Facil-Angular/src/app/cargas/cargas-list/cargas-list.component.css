@@ -17,3 +17,11 @@ margin: 2px;
 .mat-mdc-row .mdc-data-table__row .cdk-row{
 width: 80%;
 }
+mat-header-cell{
+  display:flex;
+  flex-wrap: wrap;
+}
+
+@media (max-width:720px) {
+
+}
