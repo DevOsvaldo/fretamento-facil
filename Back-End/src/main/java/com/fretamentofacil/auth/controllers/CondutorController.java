@@ -1,9 +1,13 @@
 package com.fretamentofacil.auth.controllers;
 
 import com.fretamentofacil.auth.domain.dto.CondutorDTO;
+import com.fretamentofacil.auth.domain.dto.CondutorPageDTO;
 import com.fretamentofacil.auth.domain.model.Condutor;
 import com.fretamentofacil.auth.services.CondutorService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +23,15 @@ public class CondutorController {
     private CondutorService condutorService;
     //GET
     @GetMapping
+    public CondutorPageDTO list(@RequestParam(defaultValue = "0")@PositiveOrZero int page,
+                                @RequestParam(defaultValue = "10") @Positive @Max(100) int pageSize){
+        return condutorService.list(page, pageSize);
+    }
+    /*@GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Condutor> findall(){
         return condutorService.findAllActiveCondutores();
-    }
+    }*/
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Condutor> getCondutorById(@PathVariable Long id){

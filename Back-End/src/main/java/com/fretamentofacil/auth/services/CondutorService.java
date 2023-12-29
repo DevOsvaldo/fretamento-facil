@@ -1,6 +1,7 @@
 package com.fretamentofacil.auth.services;
 
 import com.fretamentofacil.auth.domain.dto.CondutorDTO;
+import com.fretamentofacil.auth.domain.dto.CondutorPageDTO;
 import com.fretamentofacil.auth.domain.model.Carga;
 import com.fretamentofacil.auth.domain.model.SituacaoCondutor;
 import com.fretamentofacil.auth.repositories.CondutorRepository;
@@ -13,15 +14,20 @@ import com.fretamentofacil.auth.domain.user.User;
 import com.fretamentofacil.auth.domain.user.UserRole;
 import com.fretamentofacil.auth.repositories.CargaRepository;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.fretamentofacil.auth.controllers.AuthenticationController.LOGGER;
 
@@ -42,10 +48,52 @@ public class CondutorService {
 
 
 
-
-    public List<Condutor> findAllCondutor(){
-        return condutorRepository.findAll();
+    public CondutorPageDTO list(@PositiveOrZero int page, @Positive @Max(100) int pageSize){
+        Page<Condutor> pageCondutor = condutorRepository.findAll(PageRequest.of(page,pageSize));
+        List<CondutorDTO> condutores = pageCondutor.getContent().stream()
+                .map(this::mapCondutorToDTO)
+                .collect(Collectors.toList());
+        return new CondutorPageDTO(condutores, pageCondutor.getTotalElements(), pageCondutor.getTotalPages());
     }
+    private CondutorDTO mapCondutorToDTO(Condutor condutor) {
+        // Aqui, obtenha o User associado ao Condutor e recupere login, password(senha) e role
+        String login = condutor.getUser().getLogin();
+        String password = condutor.getUser().getPassword();
+        UserRole role = condutor.getRoles().stream().findFirst().orElse(null).getRoleName();
+
+        return new CondutorDTO(
+                login,
+                password,
+                role,
+                condutor.getNome(),
+                condutor.getCpf(),
+                condutor.getCep(),
+                condutor.getEndereco(),
+                condutor.getTipo_Veiculo(),
+                condutor.getCapacidadeVeiculo(),
+                condutor.getSituacaoCondutor()
+        );
+    }
+    /*
+    public List<Condutor> findAllCondutor() {
+
+        return condutorRepository.findAll();
+    }*/
+    /*
+    private CondutorDTO mapCondutorToDTO(Condutor condutor) {
+        return new CondutorDTO(
+                condutor.getLogin(),
+                condutor.getPassword(),
+                condutor.getRole(),
+                condutor.getNome(),
+                condutor.getCpf(),
+                condutor.getEndereco(),
+                condutor.getCep(),
+                condutor.getTipo_Veiculo(),
+                condutor.getCapacidadeVeiculo(),
+                condutor.getSituacaoCondutor()
+        );
+    }*/
     public List<Condutor> findAllActiveCondutores() {
         return condutorRepository.findByDeletedFalse();
     }

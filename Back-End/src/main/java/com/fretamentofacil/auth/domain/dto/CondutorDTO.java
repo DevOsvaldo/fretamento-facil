@@ -8,4 +8,5 @@ public record CondutorDTO(String login, String password, UserRole role, String n
                           String endereco, String tipo_Veiculo , Double capacidadeVeiculo,
                           SituacaoCondutor situacaoCondutor) {
 
+
 }
