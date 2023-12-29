@@ -4,6 +4,7 @@ import { CargasComponent } from '../../cargas/cargas.component';
 import { CargasListComponent } from '../../cargas-list/cargas-list.component';
 import { CargasFormComponent } from '../../cargas-form/cargas-form.component';
 import { CondutorListComponent } from '../../../condutores/condutor-list/condutor-list/condutor-list.component';
+import { SentinelGuard } from '../../../guard/sentinel/sentinel.guard';
 
 const routes: Routes = [
   {
@@ -22,7 +23,7 @@ const routes: Routes = [
     children: [
       { path: 'edit/:id', component: CargasFormComponent },
       { path: ':id/condutorlist', component: CondutorListComponent },
-    ],
+    ],canActivate:[SentinelGuard], data:{requiredRole:['ROLE_ADMIN','ROLE_MOD']}
   },
 ];
 

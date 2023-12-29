@@ -3,6 +3,17 @@
   overflow: auto;
   max-height: 600px;
 }
-.action-column{
-  flex: 55px;
+.action-column {
+margin: 2px;
+}
+
+.action-column-header {
+  margin: 0 auto;
+}
+
+.cdk-header-cell {
+  font-weight: bold;
+}
+.mat-mdc-row .mdc-data-table__row .cdk-row{
+width: 80%;
 }
