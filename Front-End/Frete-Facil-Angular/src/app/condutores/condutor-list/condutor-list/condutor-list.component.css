@@ -4,11 +4,18 @@
 }
 
 mat-card {
-  width: 80%;
+  width: 90%;
   margin: 2em auto;
   text-align: center;
 }
+.example-button-row {
+  display: table-cell;
+  max-width: 250px;
+}
 
+.example-button-row .mat-mdc-button-base {
+  margin: 3px 3px 3px 0;
+}
 
 .action-column {
   flex: 75px;

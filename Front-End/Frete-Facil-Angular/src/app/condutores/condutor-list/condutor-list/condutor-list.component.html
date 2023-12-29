@@ -69,7 +69,10 @@
                 <button mat-icon-button color="warn" aria-label="Deletar um motorista" (click)="onRemove(condutor)">
                   <mat-icon>delete</mat-icon>
                 </button>
-                <button mat-raised-button (click)="onSelect(condutor.id)">Selecionar</button>
+                <div class="example-button-row">
+                  <button mat-raised-button (click)="onSelect(condutor.id)">Selecionar</button>
+                </div>
+
 
               </mat-cell>
 

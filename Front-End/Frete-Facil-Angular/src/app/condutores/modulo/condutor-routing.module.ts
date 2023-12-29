@@ -15,7 +15,7 @@ const routes: Routes = [
     path: 'cargaslist/:id/condutorlist',
     component: CondutorListComponent,
     canActivate: [SentinelGuard],
-    data: { requiredRole: ['ROLE_ADMIN', 'ROLE_MODERATOR'] },
+    data: { requiredRole: ['ROLE_ADMIN', 'ROLE_MOD'] },
   },
   // Certifique-se de adicionar outras rotas conforme necessário
 ];
