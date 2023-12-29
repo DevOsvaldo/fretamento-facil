@@ -17,7 +17,6 @@ const routes: Routes = [
     canActivate: [SentinelGuard],
     data: { requiredRole: ['ROLE_ADMIN', 'ROLE_MOD'] },
   },
-  // Certifique-se de adicionar outras rotas conforme necessário
 ];
 
 @NgModule({
