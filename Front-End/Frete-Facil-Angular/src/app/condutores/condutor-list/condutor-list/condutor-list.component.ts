@@ -9,6 +9,7 @@ import { Condutor } from '../../models/condutor';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { CondutorPage } from '../../models/condutor-page';
 
 @Component({
   selector: 'app-condutor-list',
@@ -16,7 +17,7 @@ import { ConfirmationDialogComponent } from '../../../shared/components/confirma
   styleUrl: './condutor-list.component.css',
 })
 export class CondutorListComponent implements OnInit {
-  condutor$!: Observable<Condutor[]>;
+  condutor$: Observable<CondutorPage> | null = null;
   condutor: Condutor[] = [];
   cargaId!: number;
   displayedColumns = [
@@ -90,7 +91,7 @@ export class CondutorListComponent implements OnInit {
     this.condutor$ = this.condutorService.findAll().pipe(
       catchError((error) => {
         this.onError('Erro ao carregar dados');
-        return of([]);
+        return of({ condutor: [], totalElements: 0, totalPages: 0 });
       })
     );
   }

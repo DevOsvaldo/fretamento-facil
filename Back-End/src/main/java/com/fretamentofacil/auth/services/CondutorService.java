@@ -59,9 +59,13 @@ public class CondutorService {
         // Aqui, obtenha o User associado ao Condutor e recupere login, password(senha) e role
         String login = condutor.getUser().getLogin();
         String password = condutor.getUser().getPassword();
-        UserRole role = condutor.getRoles().stream().findFirst().orElse(null).getRoleName();
+        UserRole role = condutor.getRoles().stream()
+                .findFirst()
+                .map(Role::getRoleName) // Use map para extrair o roleName se o Optional não estiver vazio
+                .orElse(null);
 
         return new CondutorDTO(
+                condutor.getId(),
                 login,
                 password,
                 role,

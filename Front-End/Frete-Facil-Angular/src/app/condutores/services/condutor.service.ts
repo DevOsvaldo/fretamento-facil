@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, first, retry, tap, throwError } from 'rxjs';
 import { Condutor } from '../models/condutor';
+import { CondutorPage } from '../models/condutor-page';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class CondutorService {
   private readonly API = 'http://localhost:8080/condutor';
 
   findAll() {
-    return this.httpClient.get<Condutor[]>(this.API).pipe(
+    return this.httpClient.get<CondutorPage>(this.API).pipe(
       first()
       //delay(5000),
       //tap((condutorList) => console.log('lista impressa'))

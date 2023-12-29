@@ -6,7 +6,7 @@
       </mat-toolbar>
       <div class="mat-elevation-z8 column-flex">
         <div *ngIf="condutor$ | async as condutor; else loading">
-          <mat-table [dataSource]="condutor" class="mat-elevation-z8">
+          <mat-table [dataSource]="condutor.condutor" class="mat-elevation-z8">
             <ng-container matColumnDef="id">
               <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
               <mat-cell *matCellDef="let condutor"> {{condutor.id}}
