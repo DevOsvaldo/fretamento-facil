@@ -83,21 +83,7 @@ public class CondutorService {
 
         return condutorRepository.findAll();
     }*/
-    /*
-    private CondutorDTO mapCondutorToDTO(Condutor condutor) {
-        return new CondutorDTO(
-                condutor.getLogin(),
-                condutor.getPassword(),
-                condutor.getRole(),
-                condutor.getNome(),
-                condutor.getCpf(),
-                condutor.getEndereco(),
-                condutor.getCep(),
-                condutor.getTipo_Veiculo(),
-                condutor.getCapacidadeVeiculo(),
-                condutor.getSituacaoCondutor()
-        );
-    }*/
+
     public List<Condutor> findAllActiveCondutores() {
         return condutorRepository.findByDeletedFalse();
     }
