@@ -1,9 +1,13 @@
 package com.fretamentofacil.auth.controllers;
 
+import com.fretamentofacil.auth.domain.dto.CargaPageDTO;
 import com.fretamentofacil.auth.domain.model.Carga;
 import com.fretamentofacil.auth.domain.model.SituacaoCarga;
 import com.fretamentofacil.auth.services.CargaService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +29,18 @@ public class CargaController {
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
+    public CargaPageDTO list(@RequestParam(defaultValue = "0")@PositiveOrZero int page,
+                             @RequestParam(defaultValue = "10")@Positive @Max(100) int pageSize){
+        return cargaService.list(page, pageSize);
+    }
+
+
+
+    /*@GetMapping
+    @ResponseStatus(code = HttpStatus.OK)
     public List<Carga> findallCarga(){
         return cargaService.findAllCarga();
-    }
+    }*/
     @GetMapping("/{id}")
     public ResponseEntity<Carga> getById(@PathVariable Long id){
         Optional<Carga> cargaOptional = cargaService.getCargaById(id);
