@@ -11,6 +11,7 @@ import { ConfirmationDialogComponent } from '../../shared/components/confirmatio
 import { CargasService } from '../../cargas/services/cargas.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
+import { CargaPage } from '../../cargas/models/carga-page';
 
 @Component({
   selector: 'app-gestor',
@@ -18,7 +19,7 @@ import { Location } from '@angular/common';
   styleUrl: './gestor.component.css',
 })
 export class GestorComponent implements OnInit {
-  cargas$!: Observable<Carga[]>;
+  cargas$: Observable<CargaPage> | null = null;
   cargas: Carga[] = [];
   gestor!: Gestor;
   token: any;
@@ -59,8 +60,9 @@ export class GestorComponent implements OnInit {
   buscar() {
     this.cargas$ = this.gestorService.findAll().pipe(
       catchError((error) => {
-        this.onError('Erro ao carregar dados');
-        return of([]);
+        console.error('Erro ao carregar dados', error);
+        this.onError('Erro ao carregar dados: ' + error.message);
+        return of({ carga: [], totalElements: 0, totalPages: 0 });
       })
     );
   }

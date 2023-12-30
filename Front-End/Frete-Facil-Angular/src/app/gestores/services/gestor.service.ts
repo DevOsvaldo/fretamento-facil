@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { Carga } from '../../cargas/models/carga';
 import { Gestor } from '../models/gestor';
+import { CargaPage } from '../../cargas/models/carga-page';
 
 @Injectable({
   providedIn: 'root',
@@ -16,15 +17,23 @@ export class GestorService {
   >(null);
 
   constructor(private http: HttpClient) {}
-  findAll() {
-    return this.http
-      .get<Carga[]>(this.cargaUrl)
-      .pipe(
-        map((cargaslist: Carga[]) =>
-          cargaslist.filter((carga) => carga.situacaoCarga === 'INATIVA')
-        )
-      );
+  findAll(): Observable<{
+    carga: Carga[];
+    totalElements: number;
+    totalPages: number;
+  }> {
+    return this.http.get<CargaPage>(this.cargaUrl).pipe(
+      map((cargaslist: CargaPage) => ({
+        carga:
+          cargaslist?.carga.filter(
+            (carga) => carga.situacaoCarga === 'INATIVA'
+          ) || [],
+        totalElements: cargaslist.totalElements,
+        totalPages: cargaslist.totalPages,
+      }))
+    );
   }
+
   getGestorByUserId(userId: number): Observable<number | null> {
     return this.http
       .get<number>(`${this.baseUrl}/user/${userId}?userId=${userId}`)
@@ -50,7 +59,7 @@ export class GestorService {
       gestorId
     );
     const url = `${this.baseUrl}/inserir?cargaId=${cargaId}&gestorId=${gestorId}`;
-    return this.http.post<Gestor>(url,{});
+    return this.http.post<Gestor>(url, {});
   }
 
   alterarCarga(cargaId: number, cargaModificada: any): Observable<any> {

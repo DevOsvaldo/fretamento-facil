@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,6 +11,9 @@ import { ErrorDialogComponent } from '../../shared/components/error-dialog/error
 import { SharedService } from '../../shared/shared.service';
 import { Carga } from '../models/carga';
 import { CargasService } from '../services/cargas.service';
+import { CargaPage } from '../models/carga-page';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-cargas',
@@ -18,9 +21,12 @@ import { CargasService } from '../services/cargas.service';
   styleUrl: './cargas.component.scss',
 })
 export class CargasComponent implements OnInit {
-  cargas$!: Observable<Carga[]>;
+  cargas$: Observable<CargaPage> | null = null;
   cargaId: number | undefined;
-
+  dataSource: MatTableDataSource<CargaPage> | null = null;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  pageIndex = 0;
+  pageSize = 10;
   constructor(
     private cargasService: CargasService,
     private sharedService: SharedService,
@@ -33,8 +39,9 @@ export class CargasComponent implements OnInit {
   refresh() {
     this.cargas$ = this.cargasService.findAll().pipe(
       catchError((error) => {
-        this.onError('Erro ao carregar dados');
-        return of([]);
+        console.error('Erro ao carregar dados', error);
+        this.onError('Erro ao carregar dados: ' + error.message);
+        return of({ carga: [], totalElements: 0, totalPages: 0 });
       })
     );
   }

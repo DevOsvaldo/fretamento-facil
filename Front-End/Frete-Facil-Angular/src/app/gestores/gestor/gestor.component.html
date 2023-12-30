@@ -1,9 +1,9 @@
 <mat-card>
   <mat-toolbar color="primary">
-    Cargas Disponiveis
+    Cargas Inativas
   </mat-toolbar>
   <div class="mat-elevation-z8 column-flex" *ngIf="cargas$ | async as cargas;">
-    <mat-table [dataSource]="cargas">
+    <mat-table [dataSource]="cargas.carga">
       <!---ID de cargas-->
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> Carga Id </mat-header-cell>
@@ -15,7 +15,7 @@
       <ng-container matColumnDef="nomeCliente">
         <mat-header-cell *matHeaderCellDef> Nome do Cliente: </mat-header-cell>
         <mat-cell *matCellDef="let cargas"> {{cargas.nomeCliente}}
-          <mat-icon aria-hidden="false" aria-label="Cliente" fontIcon="factory">{{cargas.nomeCliente }}</mat-icon>
+
         </mat-cell>
       </ng-container>
 

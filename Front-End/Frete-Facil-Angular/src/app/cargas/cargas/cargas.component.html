@@ -2,15 +2,16 @@
   <mat-toolbar color="primary">
     Cargas Disponiveis
   </mat-toolbar>
-  <div class="mat-elevation-z8 column-flex">
-    <app-cargas-list *ngIf="cargas$ | async as cargas; else loading " [cargas]="cargas" (add)="onAdd()"
-      (edit)="onEdit($event)" (remove)="onRemove($event)" (west)="onWest() " (gest)="gestDash()"
-      (carregar)="carregarCarga($event)"></app-cargas-list>
-
-    <ng-template #loading>
-      <div class="loading-spinner">
-        <mat-spinner></mat-spinner>
-      </div>
-    </ng-template>
+  <div class="mat-elevation-z8 column-flex" *ngIf="cargas$ | async as cargas; else loading ">
+    <app-cargas-list [cargas]="cargas.carga" (add)="onAdd()" (edit)="onEdit($event)" (remove)="onRemove($event)"
+      (west)="onWest() " (gest)="gestDash()" (carregar)="carregarCarga($event)"></app-cargas-list>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons [pageIndex]="pageIndex" [pageSize]="pageSize"
+      [length]="cargas.totalElements" aria-label="Selecione a Pagina de Cargas">
+    </mat-paginator>
   </div>
+  <ng-template #loading>
+    <div class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
 </mat-card>

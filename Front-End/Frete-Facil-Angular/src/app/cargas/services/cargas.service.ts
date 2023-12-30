@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Carga } from '../models/carga';
 import { Observable, catchError, delay, first, map, retry, tap } from 'rxjs';
+import { CargaPage } from '../models/carga-page';
 
 @Injectable({
   providedIn: 'root',
@@ -17,20 +18,55 @@ export class CargasService {
   };
 
   constructor(private httpClient: HttpClient, private router: Router) {}
-
+  /*
   findAll() {
+    return this.httpClient.get<CargaPage>(this.API).pipe(
+
+    );
+  }
+*/
+  findAll(): Observable<{
+    carga: Carga[];
+    totalElements: number;
+    totalPages: number;
+  }> {
+    return this.httpClient.get<CargaPage>(this.API).pipe(
+      map((cargaslist: CargaPage) => ({
+        carga:
+          cargaslist?.carga.filter(
+            (carga) => carga.situacaoCarga !== 'INATIVA'
+          ) || [],
+        totalElements: cargaslist.totalElements,
+        totalPages: cargaslist.totalPages,
+      }))
+    );
+  }
+
+  /*
+  findAll(): Observable<{
+    carga: Carga[];
+    totalElements: number;
+    totalPages: number;
+  }> {
     return this.httpClient
-      .get<Carga[]>(this.API)
-      .pipe(
-        map((cargaslist: Carga[]) =>
-          cargaslist.filter(
+      .get<CargaPage>(this.API)
+      .pipe
+      /*map((cargaslist: CargaPage) => {
+        const cargas: Carga[] = cargaslist?.carga || [];
+
+        return {
+          carga: cargas.filter(
             (carga) =>
               carga.situacaoCarga === 'AGUARDANDO' ||
               carga.situacaoCarga === 'ATENDIDA'
-          )
-        )
-      );
-  }
+          ),
+          totalElements: cargaslist.totalElements,
+          totalPages: cargaslist.totalPages,
+        };
+      })
+      ();
+  }*/
+
   getById(id: number): Observable<Carga> {
     return this.httpClient
       .get<Carga>(`${this.API}/${id}`)
