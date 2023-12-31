@@ -23,6 +23,7 @@ import { GestorFormComponent } from './gestores/gestor-form/gestor-form.componen
 import { CarregamentoComponent } from './carregamentos/carregamento/carregamento.component';
 import { CondutorDashComponent } from './pages/condutor-dash/condutor-dash/condutor-dash.component';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import { ObterInfoComponent } from './gestores/obter-info/obter-info/obter-info.component';
 
 //import { CargasResolver } from './guard/cargas.resolver';
 
@@ -39,6 +40,7 @@ import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
     GestorFormComponent,
     CarregamentoComponent,
     CondutorDashComponent,
+    ObterInfoComponent,
   ],
   imports: [
     BrowserModule,

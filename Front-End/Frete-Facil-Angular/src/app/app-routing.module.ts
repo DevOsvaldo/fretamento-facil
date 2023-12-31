@@ -14,6 +14,7 @@ import { CondutorDashComponent } from './pages/condutor-dash/condutor-dash/condu
 import { SentinelGuard } from './guard/sentinel/sentinel.guard';
 import { GestorComponent } from './gestores/gestor/gestor.component';
 import { GestorFormComponent } from './gestores/gestor-form/gestor-form.component';
+import { ObterInfoComponent } from './gestores/obter-info/obter-info/obter-info.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
@@ -67,6 +68,7 @@ const routes: Routes = [
     canActivate: [SentinelGuard],
     data: { requiredRole: ['ROLE_ADMIN', 'ROLE_MOD'] },
   },
+  { path: 'info', component: ObterInfoComponent },
   { path: 'cargaslegenda', component: CargasLegendaComponent },
   { path: 'carregamento', component: CarregamentoComponent },
   { path: '**', redirectTo: 'login' }, // Redireciona para 'login' se a rota não for encontrada
