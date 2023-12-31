@@ -62,7 +62,7 @@ public class CondutorService {
         UserRole role = condutor.getRoles().stream()
                 .findFirst()
                 .map(Role::getRoleName) // Use map para extrair o roleName se o Optional não estiver vazio
-                .orElse(null);
+                .orElse(UserRole.USER);
 
         return new CondutorDTO(
                 condutor.getId(),
@@ -82,8 +82,8 @@ public class CondutorService {
     public List<Condutor> findAllCondutor() {
 
         return condutorRepository.findAll();
-    }*/
-
+    }
+    */
     public List<Condutor> findAllActiveCondutores() {
         return condutorRepository.findByDeletedFalse();
     }
@@ -121,9 +121,10 @@ public class CondutorService {
         condutor.setSituacaoCondutor(condutorDto.situacaoCondutor());
         condutor.setRoles(roles);
         user.setCondutor(condutor);
-
+        LOGGER.info("Condutor Criado: "+condutor);
         // Salvar o Condutor
         return condutorRepository.save(condutor);
+
     }
 
     public Condutor atualizarDadosCondutor(Long id, CondutorDTO condutorDTO) {

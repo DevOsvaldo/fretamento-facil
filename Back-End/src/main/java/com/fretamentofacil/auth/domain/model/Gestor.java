@@ -5,14 +5,16 @@ import com.fretamentofacil.auth.domain.user.Role;
 import com.fretamentofacil.auth.domain.user.User;
 import com.fretamentofacil.auth.domain.user.UserRole;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "Moderador")
 public class Gestor {

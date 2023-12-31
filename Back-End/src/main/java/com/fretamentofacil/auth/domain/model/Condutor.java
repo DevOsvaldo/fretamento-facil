@@ -4,13 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fretamentofacil.auth.domain.user.Role;
 import com.fretamentofacil.auth.domain.user.User;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Condutor {
 
@@ -40,7 +43,7 @@ public class Condutor {
     @JsonIgnore
     @OneToOne(mappedBy = "condutor",  cascade = CascadeType.ALL, orphanRemoval = true)
     private User user;
-
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "condutor_role",
