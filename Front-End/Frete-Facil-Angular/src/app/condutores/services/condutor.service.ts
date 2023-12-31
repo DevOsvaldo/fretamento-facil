@@ -15,13 +15,27 @@ export class CondutorService {
   constructor(private httpClient: HttpClient) {}
   private readonly API = 'http://localhost:8080/condutor';
 
+  findAll(
+    page = 0,
+    pageSize = 10
+  ): Observable<{
+    condutor: Condutor[];
+    totalElements: number;
+    totalPages: number;
+  }> {
+    return this.httpClient
+      .get<CondutorPage>(this.API, { params: { page, pageSize } })
+      .pipe(first());
+  }
+
+  /*
   findAll() {
-    return this.httpClient.get<CondutorPage>(this.API).pipe(
+    return this.httpClient.get<Condutor[]>(this.API).pipe(
       first()
       //delay(5000),
       //tap((condutorList) => console.log('lista impressa'))
     );
-  }
+  }*/
   //obtem todos os condutores teste
   getCondutores(): Observable<Condutor[]> {
     return this.httpClient

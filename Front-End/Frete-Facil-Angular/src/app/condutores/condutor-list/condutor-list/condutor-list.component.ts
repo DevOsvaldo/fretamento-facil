@@ -1,8 +1,8 @@
 import { response } from 'express';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, of, tap } from 'rxjs';
 import { CondutorService } from '../../services/condutor.service';
 import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
 import { Condutor } from '../../models/condutor';
@@ -10,6 +10,8 @@ import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { CondutorPage } from '../../models/condutor-page';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-condutor-list',
@@ -18,6 +20,10 @@ import { CondutorPage } from '../../models/condutor-page';
 })
 export class CondutorListComponent implements OnInit {
   condutor$: Observable<CondutorPage> | null = null;
+  dataSource: MatTableDataSource<CondutorPage> | null = null;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  pageIndex = 0;
+  pageSize = 10;
   condutor: Condutor[] = [];
   cargaId!: number;
   displayedColumns = [
@@ -87,13 +93,21 @@ export class CondutorListComponent implements OnInit {
     });
   }
 
-  buscar() {
-    this.condutor$ = this.condutorService.findAll().pipe(
-      catchError((error) => {
-        this.onError('Erro ao carregar dados');
-        return of({ condutor: [], totalElements: 0, totalPages: 0 });
-      })
-    );
+  buscar(
+    pageEvent: PageEvent = { length: 0, pageIndex: 0, pageSize: 10 }
+  ): void {
+    this.condutor$ = this.condutorService
+      .findAll(pageEvent.pageIndex, pageEvent.pageSize)
+      .pipe(
+        tap(() => {
+          (this.pageIndex = pageEvent.pageIndex),
+            (this.pageSize = pageEvent.pageSize);
+        }),
+        catchError((error) => {
+          this.onError('Erro ao carregar dados');
+          return of({ condutor: [], totalElements: 0, totalPages: 0 });
+        })
+      );
   }
   onError(errorMsg: string) {
     this.dialog.open(ErrorDialogComponent, {

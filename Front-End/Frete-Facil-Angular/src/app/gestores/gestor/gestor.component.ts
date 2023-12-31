@@ -1,6 +1,12 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Carga } from '../../cargas/models/carga';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, of, tap } from 'rxjs';
 import { GestorService } from '../services/gestor.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
@@ -12,6 +18,8 @@ import { CargasService } from '../../cargas/services/cargas.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
 import { CargaPage } from '../../cargas/models/carga-page';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-gestor',
@@ -20,6 +28,10 @@ import { CargaPage } from '../../cargas/models/carga-page';
 })
 export class GestorComponent implements OnInit {
   cargas$: Observable<CargaPage> | null = null;
+  dataSource: MatTableDataSource<CargaPage> | null = null;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  pageIndex = 0;
+  pageSize = 10;
   cargas: Carga[] = [];
   gestor!: Gestor;
   token: any;
@@ -57,14 +69,20 @@ export class GestorComponent implements OnInit {
       this.gestorId = gestorId;
     });
   }
-  buscar() {
-    this.cargas$ = this.gestorService.findAll().pipe(
-      catchError((error) => {
-        console.error('Erro ao carregar dados', error);
-        this.onError('Erro ao carregar dados: ' + error.message);
-        return of({ carga: [], totalElements: 0, totalPages: 0 });
-      })
-    );
+  buscar(pageEvent: PageEvent = { length: 0, pageIndex: 0, pageSize: 10 }) {
+    this.cargas$ = this.gestorService
+      .findAll(pageEvent.pageIndex, pageEvent.pageSize)
+      .pipe(
+        tap(() => {
+          this.pageIndex = pageEvent.pageIndex;
+          this.pageSize = pageEvent.pageSize;
+        }),
+        catchError((error) => {
+          console.error('Erro ao carregar dados', error);
+          this.onError('Erro ao carregar dados: ' + error.message);
+          return of({ carga: [], totalElements: 0, totalPages: 0 });
+        })
+      );
   }
   onError(errorMsg: string) {
     this.dialog.open(ErrorDialogComponent, {

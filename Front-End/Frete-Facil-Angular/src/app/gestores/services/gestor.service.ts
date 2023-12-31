@@ -17,21 +17,26 @@ export class GestorService {
   >(null);
 
   constructor(private http: HttpClient) {}
-  findAll(): Observable<{
+  findAll(
+    page = 0,
+    pageSize = 10
+  ): Observable<{
     carga: Carga[];
     totalElements: number;
     totalPages: number;
   }> {
-    return this.http.get<CargaPage>(this.cargaUrl).pipe(
-      map((cargaslist: CargaPage) => ({
-        carga:
-          cargaslist?.carga.filter(
-            (carga) => carga.situacaoCarga === 'INATIVA'
-          ) || [],
-        totalElements: cargaslist.totalElements,
-        totalPages: cargaslist.totalPages,
-      }))
-    );
+    return this.http
+      .get<CargaPage>(this.cargaUrl, { params: { page, pageSize } })
+      .pipe(
+        map((cargaslist: CargaPage) => ({
+          carga:
+            cargaslist?.carga.filter(
+              (carga) => carga.situacaoCarga === 'INATIVA'
+            ) || [],
+          totalElements: cargaslist.totalElements,
+          totalPages: cargaslist.totalPages,
+        }))
+      );
   }
 
   getGestorByUserId(userId: number): Observable<number | null> {
