@@ -24,6 +24,9 @@ export class LayoutComponent {
   onViewGest() {
     this.router.navigate(['gestor']);
   }
+  onCarreg() {
+    this.router.navigate(['info']);
+  }
   logout() {
     this.logoutService.logout();
   }
