@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface CargaRepository extends JpaRepository<Carga, Long> {
     List<Carga> findBySituacaoCarga(SituacaoCarga situacaoCarga);
+
+    List<Carga> findCargasByCondutor_Id(Long condutorId);
 }

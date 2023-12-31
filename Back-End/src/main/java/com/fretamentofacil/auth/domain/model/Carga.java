@@ -35,5 +35,10 @@ public class Carga {
     private Condutor condutor;
 
 
-
+    public Long getCondutorId() {
+        if (condutor != null) {
+            return condutor.getId();
+        }
+        return null; // Ou uma alternativa, como -1L ou outro valor representativo de "não encontrado"
+    }
 }
