@@ -5,6 +5,7 @@ import { Carga } from '../../cargas/models/carga';
 import { Gestor } from '../models/gestor';
 import { CargaPage } from '../../cargas/models/carga-page';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -74,7 +75,46 @@ export class GestorService {
     );
   }
 
-  obterInformacoesCarregamento(): Observable<string> {
-    return this.http.get<string>(`${this.baseUrl}/info`);
+  obterInformacoesCarregamento(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/info`);
   }
+  /*
+  obterInformacoesCarregamento(): Observable<Carregamento[]> {
+    return this.http.get<string>(`${this.baseUrl}/info`).pipe(
+      // Converte a string retornada pela API em um objeto Carregamento
+      map((data) => this.parse(data))
+    );
+  }
+  parse(data: any): Carregamento[] {
+    if (typeof data === 'string') {
+      // Somente faz o parse se data for uma string
+      const json = JSON.parse(data);
+
+      const carregamentos: Carregamento[] = [];
+      for (const carga of json.cargas) {
+        const condutor = json.condutores.find(
+          (c: { id: any }) => c.id === carga.condutorId
+        );
+
+        carregamentos.push(
+          new Carregamento(
+            carga.id,
+            carga.nomeCliente,
+            carga.pesoCarga,
+            condutor.nome,
+            condutor.tipo_Veiculo,
+            condutor.capacidadeVeiculo
+          )
+        );
+      }
+
+      console.log(carregamentos);
+      return carregamentos;
+    } else {
+      // Se data não for uma string, pode ser que já seja um objeto
+      // Nesse caso, apenas retorne data como está
+      console.log(data);
+      return data;
+    }
+  }*/
 }
