@@ -77,7 +77,8 @@ export class CondutorListComponent implements OnInit {
             console.log('Carga carregada com sucesso:', response);
           },
           (error) => {
-            this.snackBar.open(
+            this.handleHttpError(error);
+            /*this.snackBar.open(
               'Carga não está pronta para ser carregada',
               'X',
               {
@@ -85,8 +86,8 @@ export class CondutorListComponent implements OnInit {
                 horizontalPosition: 'center',
                 verticalPosition: 'top',
               }
-            );
-            console.error('Erro ao carregar carga:', error);
+            );*/
+            console.error('Erro ao carregar carga:', error.message);
           }
         );
       }
@@ -144,6 +145,7 @@ export class CondutorListComponent implements OnInit {
           this.updateAndNavigate(condutorAtual);
         },
         (erro) => {
+          this.handleHttpError(erro);
           console.error('Erro ao obter detalhes do condutor:', erro);
         }
       );
@@ -176,5 +178,15 @@ export class CondutorListComponent implements OnInit {
         );
       }
     });
+  }
+  private handleHttpError(error: any) {
+    if (error && error.error && error.error.message) {
+      // Exibir a mensagem de erro no console ou em outro lugar, se necessário
+      console.error('Mensagem de erro:', error.error.message);
+
+      this.snackBar.open(error.error.message, 'X', { duration: 5000 });
+    } else {
+      console.error('Erro desconhecido:', error);
+    }
   }
 }
