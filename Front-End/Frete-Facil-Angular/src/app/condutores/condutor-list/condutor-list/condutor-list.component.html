@@ -4,91 +4,93 @@
       <mat-toolbar>
         Condutores Disponiveis
       </mat-toolbar>
-      <div class="mat-elevation-z8 column-flex">
-        <div *ngIf="condutor$ | async as condutor; else loading">
-          <mat-table [dataSource]="condutor.condutor" class="mat-elevation-z8">
-            <ng-container matColumnDef="id">
-              <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-              <mat-cell *matCellDef="let condutor"> {{condutor.id}}
-              </mat-cell>
-            </ng-container>
-            <!-- Nome do Condutor Column -->
-            <ng-container matColumnDef="nome">
-              <mat-header-cell *matHeaderCellDef> Nome do Motorista: </mat-header-cell>
-              <mat-cell *matCellDef="let condutor"> {{condutor.nome}}
-              </mat-cell>
-            </ng-container>
-            <!--CPF Column-->
-            <ng-container matColumnDef="cpf">
-              <mat-header-cell *matHeaderCellDef> CPF: </mat-header-cell>
-              <mat-cell *matCellDef="let condutor"> {{condutor.cpf}}
-              </mat-cell>
-            </ng-container>
-            <!-- Endereço  Column -->
-            <ng-container matColumnDef="endereco">
-              <mat-header-cell *matHeaderCellDef> Endereço: </mat-header-cell>
-              <mat-cell *matCellDef="let condutor"> {{condutor.endereco}}
+      <div class="mat-elevation-z8 column-flex" *ngIf="condutor$ | async as condutor; else loading">
+        <mat-table [dataSource]="condutor.condutor" class="mat-elevation-z8">
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+            <mat-cell *matCellDef="let condutor"> {{condutor.id}}
+            </mat-cell>
+          </ng-container>
+          <!-- Nome do Condutor Column -->
+          <ng-container matColumnDef="nome">
+            <mat-header-cell *matHeaderCellDef> Nome do Motorista: </mat-header-cell>
+            <mat-cell *matCellDef="let condutor"> {{condutor.nome}}
+            </mat-cell>
+          </ng-container>
+          <!--CPF Column-->
+          <ng-container matColumnDef="cpf">
+            <mat-header-cell *matHeaderCellDef> CPF: </mat-header-cell>
+            <mat-cell *matCellDef="let condutor"> {{condutor.cpf}}
+            </mat-cell>
+          </ng-container>
+          <!-- Endereço  Column -->
+          <ng-container matColumnDef="endereco">
+            <mat-header-cell *matHeaderCellDef> Endereço: </mat-header-cell>
+            <mat-cell *matCellDef="let condutor"> {{condutor.endereco}}
 
-              </mat-cell>
-            </ng-container>
+            </mat-cell>
+          </ng-container>
 
-            <!-- Tipo do Veiculo Column -->
-            <ng-container matColumnDef="tipo_Veiculo">
-              <mat-header-cell *matHeaderCellDef> Tipo do Veiculo: </mat-header-cell>
-              <mat-cell *matCellDef="let condutor"> {{condutor.tipo_Veiculo }} </mat-cell>
-            </ng-container>
+          <!-- Tipo do Veiculo Column -->
+          <ng-container matColumnDef="tipo_Veiculo">
+            <mat-header-cell *matHeaderCellDef> Tipo do Veiculo: </mat-header-cell>
+            <mat-cell *matCellDef="let condutor"> {{condutor.tipo_Veiculo }} </mat-cell>
+          </ng-container>
 
-            <!-- Capacidade do Veiculo Column -->
-            <ng-container matColumnDef="capacidadeVeiculo">
-              <mat-header-cell *matHeaderCellDef> Capacidade do veiculo: </mat-header-cell>
-              <mat-cell *matCellDef="let condutor"> {{condutor.capacidadeVeiculo | number: '1.2-2'}} </mat-cell>
-            </ng-container>
+          <!-- Capacidade do Veiculo Column -->
+          <ng-container matColumnDef="capacidadeVeiculo">
+            <mat-header-cell *matHeaderCellDef> Capacidade do veiculo: </mat-header-cell>
+            <mat-cell *matCellDef="let condutor"> {{condutor.capacidadeVeiculo | number: '1.2-2'}} </mat-cell>
+          </ng-container>
 
-            <!-- Situação da Carga Column -->
-            <ng-container matColumnDef="situacaoCondutor">
-              <mat-header-cell *matHeaderCellDef> Situação do Condutor: </mat-header-cell>
-              <mat-cell *matCellDef="let condutor"> {{ condutor.situacaoCondutor }} </mat-cell>
-            </ng-container>
+          <!-- Situação da Carga Column -->
+          <ng-container matColumnDef="situacaoCondutor">
+            <mat-header-cell *matHeaderCellDef> Situação do Condutor: </mat-header-cell>
+            <mat-cell *matCellDef="let condutor"> {{ condutor.situacaoCondutor }} </mat-cell>
+          </ng-container>
 
-            <!-- Actions Column -->
-            <ng-container matColumnDef="actions">
-              <mat-header-cell *matHeaderCellDef="" class="action-column-header">
-                <button mat-mini-fab color="primary" aria-label="Adicionar um motorista" (click)="onAdd()">
-                  <mat-icon>add</mat-icon>
-                </button>
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef="" class="action-column-header">
+              <button mat-mini-fab color="primary" aria-label="Adicionar um motorista" (click)="onAdd()">
+                <mat-icon>add</mat-icon>
+              </button>
 
-                <button mat-mini-fab color="primary" aria-label="Adicionar um motorista" (click)="onBack()">
-                  <mat-icon>west</mat-icon>
-                </button>
-              </mat-header-cell>
+              <button mat-mini-fab color="primary" aria-label="Adicionar um motorista" (click)="onBack()">
+                <mat-icon>west</mat-icon>
+              </button>
+            </mat-header-cell>
 
-              <mat-cell *matCellDef="let condutor" class="action-column">
-                <button mat-icon-button color="primary" aria-label="Editar um motorista" (click)="onEdit(condutor)">
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button color="warn" aria-label="Deletar um motorista" (click)="onRemove(condutor)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-                <div class="example-button-row">
-                  <button mat-raised-button (click)="onSelect(condutor.id)">Selecionar</button>
-                </div>
+            <mat-cell *matCellDef="let condutor" class="action-column">
+              <button mat-icon-button color="primary" aria-label="Editar um motorista" (click)="onEdit(condutor)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" aria-label="Deletar um motorista" (click)="onRemove(condutor)">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <div class="example-button-row">
+                <button mat-raised-button (click)="onSelect(condutor.id)">Selecionar</button>
+              </div>
 
 
-              </mat-cell>
+            </mat-cell>
 
-            </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-          </mat-table>
-        </div>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
 
-        <ng-template #loading>
-          <div class="loading-spinner">
-            <mat-spinner></mat-spinner>
-          </div>
-        </ng-template>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons [pageIndex]="pageIndex"
+          [pageSize]="pageSize" [length]="condutor.totalElements" (page)="buscar($event)"
+          aria-label="Selecione a Pagina de Cargas">
+        </mat-paginator>
+
       </div>
-
+      <ng-template #loading>
+        <div class="loading-spinner">
+          <mat-spinner></mat-spinner>
+        </div>
+      </ng-template>
     </mat-card-content>
   </mat-card>
 
