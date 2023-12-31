@@ -1,0 +1,33 @@
+<div id="parent">
+  <div class="info">
+    <h2>Informações dos Carregamentos</h2>
+    <div class="btn">
+      <button mat-raised-button (click)="obter()">OBTER</button>
+      <button mat-raised-button (click)="onDash()">Dashboard</button>
+    </div>
+  </div>
+  <div class="container">
+    <mat-card class="example-card" *ngFor="let informacao of informacoesCarregamento.informacoes">
+      <mat-card-header>
+        <mat-card-title>Dados do Carregamento 🚛</mat-card-title>
+        <mat-card-subtitle>Carga ID:{{ informacao.carga.id }} / Condutor ID:
+          {{informacao.condutor.id}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <ul>
+          <li><strong>Nome Cliente: </strong>{{ informacao.carga.nomeCliente }}</li>
+          <li><strong>Endreço do Cliente: </strong>{{ informacao.carga.enderecoCliente }}</li>
+          <li><strong>Valor do Frete: </strong>{{ informacao.carga.valorFrete}}</li>
+        </ul>
+        <mat-divider></mat-divider>
+      </mat-card-content>
+      <mat-card-footer>
+        <ul>
+          <li><strong>Nome do Condutor: </strong>{{ informacao.condutor.nome }}</li>
+          <li><strong>Tipo do Veiculo: </strong>{{ informacao.condutor.tipo_Veiculo }}</li>
+          <li><strong>Capacidade do Veiculo: </strong>{{ informacao.condutor.capacidadeVeiculo }}KG</li>
+        </ul>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>
