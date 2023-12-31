@@ -56,10 +56,10 @@ export class CondutorComponent implements OnInit {
 
   //
 
-  tiposVeiculo = ['Carreta Trucada', 'Carreta Toco', 'Carreta Vanderleia'];
+  tiposVeiculo = ['Carreta Trucada', 'Carreta Simples', 'Carreta Vanderleia'];
   capacidadesPorTipoVeiculo: { [tipo_Veiculo: string]: number[] } = {
     'Carreta Trucada': [30000, 31999, 32500],
-    'Carreta Toco': [24900, 25200, 27000],
+    'Carreta Simples': [24900, 25200, 27000],
     'Carreta Vanderleia': [33000, 33500, 34500],
   };
 

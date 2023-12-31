@@ -29,7 +29,7 @@
   <!-- Valor do Frete Column -->
   <ng-container matColumnDef="valorFrete">
     <mat-header-cell *matHeaderCellDef> Frete: </mat-header-cell>
-    <mat-cell *matCellDef="let cargas"> {{cargas.valorFrete | number: '1.2-2'}} </mat-cell>
+    <mat-cell *matCellDef="let cargas"> {{cargas.valorFrete | currency:'BRL':'symbol':'1.2-2'}} </mat-cell>
   </ng-container>
 
   <!-- Tipo do veiculo Column -->
