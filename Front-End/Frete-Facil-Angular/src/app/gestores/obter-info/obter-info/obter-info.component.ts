@@ -5,6 +5,7 @@ import { catchError, of, switchMap, toArray } from 'rxjs';
 import { Condutor } from '../../../condutores/models/condutor';
 import { InformacoesCarregamento } from '../../models/informacoescarregamento';
 import { Router } from '@angular/router';
+import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-obter-info',

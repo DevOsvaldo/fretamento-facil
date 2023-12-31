@@ -17,7 +17,7 @@
         <ul>
           <li><strong>Nome Cliente: </strong>{{ informacao.carga.nomeCliente }}</li>
           <li><strong>Endreço do Cliente: </strong>{{ informacao.carga.enderecoCliente }}</li>
-          <li><strong>Valor do Frete: </strong>{{ informacao.carga.valorFrete}}</li>
+          <li><strong>Valor do Frete: </strong>{{ informacao.carga.valorFrete | currency:'BRL'}}</li>
         </ul>
         <mat-divider></mat-divider>
       </mat-card-content>
