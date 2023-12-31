@@ -3,6 +3,8 @@ package com.fretamentofacil.auth.services;
 
 import com.fretamentofacil.auth.domain.dto.GestorDTO;
 import com.fretamentofacil.auth.domain.model.*;
+import com.fretamentofacil.auth.infra.security.messageResponse.InformacoesCargaCondutorResponse;
+import com.fretamentofacil.auth.infra.security.messageResponse.InformacoesCarregamentoResponse;
 import com.fretamentofacil.auth.repositories.*;
 
 import com.fretamentofacil.auth.domain.user.Role;
@@ -15,10 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class GestorService {
@@ -98,31 +98,25 @@ public class GestorService {
         BeanUtils.copyProperties(cargaModificada, cargaExiste, "id");
         return cargaRepository.save(cargaExiste);
     }
-    public String obterInformacoesCarregamento(){
-        List<Carga> cargaList = cargaRepository.findBySituacaoCarga(SituacaoCarga.ATENDIDA);
-        List<Condutor> condutorList = condutorRepository.findBySituacaoCondutor(SituacaoCondutor.CARREGANDO);
-        StringBuilder informacoes = new StringBuilder();
-        if (cargaList != null && !cargaList.isEmpty()){
-            informacoes.append("Cargas sendo Carregadas: \n");
-            for(Carga carga : cargaList){
-                informacoes.append("Carga ID:").append(carga.getId()).append("\n");
-                informacoes.append("Nome do Cliente: ").append(carga.getNomeCliente()).append("\n");
-                informacoes.append("Peso da Carga: ").append(carga.getPesoCarga()).append("\n");
-            }
-        }else {
-            informacoes.append("Nenhuma carga está sendo carregada atualmente.\n");}
 
-        if (condutorList != null && !condutorList.isEmpty()){
-            for (Condutor condutorPerfil : condutorList){
-                informacoes.append("Condutor Nome: ").append(condutorPerfil.getNome()).append("\n");
-                informacoes.append("Tipo de Veiculo: ").append(condutorPerfil.getTipo_Veiculo()).append("\n");
-                informacoes.append("Capacidade do Veiculo: ").append(condutorPerfil.getCapacidadeVeiculo()).append("\n");
+    public InformacoesCarregamentoResponse obterInformacoesCarregamento() {
+        List<Carga> cargas = cargaRepository.findBySituacaoCarga(SituacaoCarga.ATENDIDA);
 
-            }
-        } else {
-            informacoes.append("Nenhuma carga está sendo carregada atualmente.\n");
-        }
-        return informacoes.toString();
+        List<InformacoesCargaCondutorResponse> informacoes = cargas.stream()
+                .map(this::criarInformacoesCargaCondutor)
+                .collect(Collectors.toList());
+
+        return new InformacoesCarregamentoResponse(informacoes);
+    }
+
+    private InformacoesCargaCondutorResponse criarInformacoesCargaCondutor(Carga carga) {
+        InformacoesCargaCondutorResponse informacoes = new InformacoesCargaCondutorResponse();
+        informacoes.setCarga(carga);
+
+        Optional<Condutor> condutorOptional = condutorRepository.findById(carga.getCondutorId());
+        condutorOptional.ifPresent(informacoes::setCondutor);
+
+        return informacoes;
     }
 
     public Integer getGestorIdByUserId(Long userId) {

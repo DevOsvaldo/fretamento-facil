@@ -3,6 +3,7 @@ package com.fretamentofacil.auth.controllers;
 import com.fretamentofacil.auth.domain.dto.GestorDTO;
 import com.fretamentofacil.auth.domain.model.Carga;
 import com.fretamentofacil.auth.domain.model.Gestor;
+import com.fretamentofacil.auth.infra.security.messageResponse.InformacoesCarregamentoResponse;
 import com.fretamentofacil.auth.services.CargaService;
 import com.fretamentofacil.auth.services.CondutorService;
 import com.fretamentofacil.auth.services.GestorService;
@@ -59,9 +60,15 @@ public class GestorController {
     }
 
     @GetMapping("/info")
-    public ResponseEntity<String> obterInformacoesCarregamento(){
-        String informacoesCarregamento = gestorService.obterInformacoesCarregamento();
-        return ResponseEntity.ok(informacoesCarregamento);
+    public ResponseEntity<InformacoesCarregamentoResponse> obterInformacoesCarregamento() {
+        try {
+            InformacoesCarregamentoResponse informacoesCarregamento = gestorService.obterInformacoesCarregamento();
+            return ResponseEntity.ok(informacoesCarregamento);
+        } catch (Exception e) {
+            // Se ocorrer um erro ao obter informações, você pode retornar um status de erro
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+
     }
 
     @DeleteMapping("/condutor/{id}")
