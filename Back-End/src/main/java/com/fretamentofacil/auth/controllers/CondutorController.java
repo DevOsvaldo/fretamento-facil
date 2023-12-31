@@ -27,7 +27,8 @@ public class CondutorController {
                                 @RequestParam(defaultValue = "10") @Positive @Max(100) int pageSize){
         return condutorService.list(page, pageSize);
     }
-    /*@GetMapping
+    /*
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Condutor> findall(){
         return condutorService.findAllActiveCondutores();
