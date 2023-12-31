@@ -186,7 +186,7 @@ public class CondutorService {
             }
             return condutor;
         }catch (RuntimeException ex){
-            throw new RuntimeException("Não foi possível carregar o produto. Motivo: " + ex.getMessage());
+            throw new RuntimeException("Não foi possível carregar a Carga. Motivo: " + ex.getMessage());
         }
     }
 
