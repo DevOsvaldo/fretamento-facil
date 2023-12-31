@@ -25,21 +25,26 @@ export class CargasService {
     );
   }
 */
-  findAll(): Observable<{
+  findAll(
+    page = 0,
+    pageSize = 10
+  ): Observable<{
     carga: Carga[];
     totalElements: number;
     totalPages: number;
   }> {
-    return this.httpClient.get<CargaPage>(this.API).pipe(
-      map((cargaslist: CargaPage) => ({
-        carga:
-          cargaslist?.carga.filter(
-            (carga) => carga.situacaoCarga !== 'INATIVA'
-          ) || [],
-        totalElements: cargaslist.totalElements,
-        totalPages: cargaslist.totalPages,
-      }))
-    );
+    return this.httpClient
+      .get<CargaPage>(this.API, { params: { page, pageSize } })
+      .pipe(
+        map((cargaslist: CargaPage) => ({
+          carga:
+            cargaslist?.carga.filter(
+              (carga) => carga.situacaoCarga !== 'INATIVA'
+            ) || [],
+          totalElements: cargaslist.totalElements,
+          totalPages: cargaslist.totalPages,
+        }))
+      );
   }
 
   /*

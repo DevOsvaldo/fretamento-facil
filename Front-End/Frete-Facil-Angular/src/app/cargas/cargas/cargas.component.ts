@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { error } from 'console';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 
 import { ConfirmationDialogComponent } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
@@ -13,7 +13,7 @@ import { Carga } from '../models/carga';
 import { CargasService } from '../services/cargas.service';
 import { CargaPage } from '../models/carga-page';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-cargas',
@@ -36,14 +36,22 @@ export class CargasComponent implements OnInit {
     private location: Location,
     private snackBar: MatSnackBar
   ) {}
-  refresh() {
-    this.cargas$ = this.cargasService.findAll().pipe(
-      catchError((error) => {
-        console.error('Erro ao carregar dados', error);
-        this.onError('Erro ao carregar dados: ' + error.message);
-        return of({ carga: [], totalElements: 0, totalPages: 0 });
-      })
-    );
+  refresh(
+    pageEvent: PageEvent = { length: 0, pageIndex: 0, pageSize: 10 }
+  ): void {
+    this.cargas$ = this.cargasService
+      .findAll(pageEvent.pageIndex, pageEvent.pageSize)
+      .pipe(
+        tap(() => {
+          (this.pageIndex = pageEvent.pageIndex),
+            (this.pageSize = pageEvent.pageSize);
+        }),
+        catchError((error) => {
+          console.error('Erro ao carregar dados', error);
+          this.onError('Erro ao carregar dados: ' + error.message);
+          return of({ carga: [], totalElements: 0, totalPages: 0 });
+        })
+      );
   }
 
   onError(errorMsg: string) {

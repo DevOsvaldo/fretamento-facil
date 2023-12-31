@@ -5,8 +5,8 @@
   <div class="mat-elevation-z8 column-flex" *ngIf="cargas$ | async as cargas; else loading ">
     <app-cargas-list [cargas]="cargas.carga" (add)="onAdd()" (edit)="onEdit($event)" (remove)="onRemove($event)"
       (west)="onWest() " (gest)="gestDash()" (carregar)="carregarCarga($event)"></app-cargas-list>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons [pageIndex]="pageIndex" [pageSize]="pageSize"
-      [length]="cargas.totalElements" aria-label="Selecione a Pagina de Cargas">
+    <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons [pageIndex]="pageIndex" [pageSize]="pageSize"
+      [length]="cargas.totalElements" (page)="refresh($event)" aria-label="Selecione a Pagina de Cargas">
     </mat-paginator>
   </div>
   <ng-template #loading>
