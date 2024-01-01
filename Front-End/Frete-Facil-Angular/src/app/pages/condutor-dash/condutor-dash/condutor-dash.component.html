@@ -18,9 +18,9 @@
       <mat-form-field class="form-situation">
         <mat-label>Selecione a Situação Atual</mat-label>
         <mat-select [(ngModel)]="condutor.situacaoCondutor" name="situacaoCondutor">
-          <mat-option value="AGUARDANDO">Aguardando</mat-option>
-          <mat-option value="EM_VIAGEM">Em viagem</mat-option>
-          <mat-option value="NO_CLIENTE">No cliente</mat-option>
+          <mat-option value="AGUARDANDO">Aguardando🟢</mat-option>
+          <mat-option value="EM_VIAGEM">Em viagem🔴</mat-option>
+          <mat-option value="NO_CLIENTE">No cliente🔵</mat-option>
         </mat-select>
       </mat-form-field>
       <button mat-raised-button (click)="modificarSituacao(condutor.id, condutor.situacaoCondutor)">Atualizar
