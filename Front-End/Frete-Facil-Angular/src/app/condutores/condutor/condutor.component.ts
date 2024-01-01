@@ -169,7 +169,7 @@ export class CondutorComponent implements OnInit {
               'Tudo Pronto',
               { duration: 2000 }
             );
-            if (response.role === 'USER') {
+            if (response.id === condutorId) {
               this.router.navigate(['condutordash']);
             } else {
               this.onBack();
