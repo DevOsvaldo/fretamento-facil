@@ -78,15 +78,6 @@ export class CondutorListComponent implements OnInit {
           },
           (error) => {
             this.handleHttpError(error);
-            /*this.snackBar.open(
-              'Carga não está pronta para ser carregada',
-              'X',
-              {
-                duration: 3000,
-                horizontalPosition: 'center',
-                verticalPosition: 'top',
-              }
-            );*/
             console.error('Erro ao carregar carga:', error.message);
           }
         );
@@ -135,13 +126,8 @@ export class CondutorListComponent implements OnInit {
       const id = condutor.id;
       console.log('console do list' + id);
 
-      // Aqui você pode adicionar a chamada para obter o condutor atual do backend
-      // Você pode usar seu serviço para buscar os detalhes do condutor com base no ID
       this.condutorService.getCondutorById(id).subscribe(
         (condutorAtual: Condutor) => {
-          // Certifique-se de tratar os detalhes do condutor obtido do backend conforme necessário
-
-          // Agora você pode chamar o método updateAndNavigate com o objeto Condutor atualizado
           this.updateAndNavigate(condutorAtual);
         },
         (erro) => {
@@ -181,7 +167,7 @@ export class CondutorListComponent implements OnInit {
   }
   private handleHttpError(error: any) {
     if (error && error.error && error.error.message) {
-      // Exibir a mensagem de erro no console ou em outro lugar, se necessário
+      // Exibir a mensagem de erro no console.
       console.error('Mensagem de erro:', error.error.message);
 
       this.snackBar.open(error.error.message, 'X', { duration: 5000 });
