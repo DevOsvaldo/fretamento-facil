@@ -3,6 +3,7 @@ package com.fretamentofacil.auth.services;
 import com.fretamentofacil.auth.domain.dto.CargaDTO;
 import com.fretamentofacil.auth.domain.dto.CargaPageDTO;
 import com.fretamentofacil.auth.domain.model.Carga;
+import com.fretamentofacil.auth.domain.model.Condutor;
 import com.fretamentofacil.auth.repositories.CargaRepository;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
@@ -62,6 +63,7 @@ public class CargaService {
         BeanUtils.copyProperties(cargaModificada, existeCarga, "id");
         return cargaRepository.save(existeCarga);
     }
+
     //Deletando Carga pelo ID
     public void deleteCarga(Long id){
         if(cargaRepository.existsById(id)){

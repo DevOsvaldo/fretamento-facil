@@ -47,6 +47,9 @@ public class CargaController {
         return cargaOptional.map(carga -> new ResponseEntity<>(carga, HttpStatus.OK)).
                 orElseGet(()-> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+
+
     @PostMapping("/cadastro")
     @ResponseStatus(code = HttpStatus.CREATED)
     public Carga criandoNovaCarga(@RequestBody @Valid Carga carga){
