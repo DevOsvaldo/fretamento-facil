@@ -19,6 +19,7 @@
         <mat-label>Selecione a Situação Atual</mat-label>
         <mat-select [(ngModel)]="condutor.situacaoCondutor" name="situacaoCondutor">
           <mat-option value="AGUARDANDO">Aguardando🟢</mat-option>
+          <mat-option value="CARREGANDO">Em Carregamento🟡</mat-option>
           <mat-option value="EM_VIAGEM">Em viagem🔴</mat-option>
           <mat-option value="NO_CLIENTE">No cliente🔵</mat-option>
         </mat-select>
