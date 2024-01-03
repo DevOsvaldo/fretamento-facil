@@ -49,7 +49,7 @@ public class CondutorService {
 
 
     public CondutorPageDTO list(@PositiveOrZero int page, @Positive @Max(100) int pageSize){
-        Page<Condutor> pageCondutor = condutorRepository.findAll(PageRequest.of(page,pageSize));
+        Page<Condutor> pageCondutor = condutorRepository.findByDeletedFalse(PageRequest.of(page,pageSize));
         List<CondutorDTO> condutores = pageCondutor.getContent().stream()
                 .map(this::mapCondutorToDTO)
                 .collect(Collectors.toList());
