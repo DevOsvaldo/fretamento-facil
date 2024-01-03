@@ -21,7 +21,7 @@ mat-icon{
 }
 .local button:hover{
   background: whitesmoke;
-  color: black;
+  color: rgb(43, 3, 70);
 }
 mat-toolbar
 {

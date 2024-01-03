@@ -18,12 +18,14 @@ a:hover {
 }
 mat-icon
 {
+  width: 40px;
+  height: 40px;
   text-align: left;
-  margin: 5px;
+  margin: 3px;
   cursor: pointer;
 }
 .example-spacer {
-    flex: 1 1 auto;
+    flex: 1 1;
     display: flex;
     justify-content: flex-end;
     align-items: center;
