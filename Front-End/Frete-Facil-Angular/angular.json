@@ -76,7 +76,8 @@
               "buildTarget": "Jwt_Login_Angular:build:production"
             },
             "development": {
-              "buildTarget": "Jwt_Login_Angular:build:development"
+              "buildTarget": "Jwt_Login_Angular:build:development",
+              "host":"0.0.0.0"
             }
           },
           "defaultConfiguration": "development"

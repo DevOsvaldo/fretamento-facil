@@ -4,6 +4,7 @@ import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import AppServerModule from './src/main.server';
+import cors from 'cors';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -48,6 +49,10 @@ function run(): void {
 
   // Start up the Node server
   const server = app();
+
+  server.use(cors({ origin: 'http://localhost:8080' }));
+
+
   server.listen(port, () => {
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
