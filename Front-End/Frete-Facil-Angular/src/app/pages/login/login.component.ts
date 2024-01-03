@@ -83,7 +83,6 @@ export class LoginComponent {
             verticalPosition: 'top',
           }
         );
-        alert('An error occurred during signup. Please try again.');
       }
     );
     this.isSubmitting = false;
@@ -124,7 +123,7 @@ export class LoginComponent {
           if (decodedToken.roles.includes('ROLE_ADMIN')) {
             this.router.navigateByUrl('/dashboard');
           } else if (decodedToken.roles.includes('ROLE_MOD')) {
-            this.router.navigateByUrl('gestor-dash');
+            this.router.navigateByUrl('/dashboard');
           } else if (decodedToken.roles.includes('ROLE_USER')) {
             this.router.navigateByUrl('condutordash');
           } else {
@@ -132,7 +131,6 @@ export class LoginComponent {
           }
         } else {
           console.log('This is the log message: ' + res.message);
-          alert('Login failed: ' + res.message);
         }
       },
       (error) => {
