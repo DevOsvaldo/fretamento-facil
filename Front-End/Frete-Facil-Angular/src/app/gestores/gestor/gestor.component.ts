@@ -120,7 +120,7 @@ export class GestorComponent implements OnInit {
               horizontalPosition: 'center',
             });
           },
-          (error) => this.onError('Erro ao tentar remover carga!')
+          (error) => this.onError('Erro ao tentar remover carga!' + error)
         );
       }
     });
