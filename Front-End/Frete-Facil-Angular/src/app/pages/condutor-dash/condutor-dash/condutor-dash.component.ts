@@ -82,9 +82,7 @@ export class CondutorDashComponent implements OnInit {
       // Você pode usar seu serviço para buscar os detalhes do condutor com base no ID
       this.condutorService.getCondutorById(id).subscribe(
         (condutorAtual: Condutor) => {
-          // Certifique-se de tratar os detalhes do condutor obtido do backend conforme necessário
-
-          // Agora você pode chamar o método updateAndNavigate com o objeto Condutor atualizado
+          
           this.updateAndNavigate(condutorAtual);
         },
         (erro) => {
