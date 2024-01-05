@@ -25,7 +25,7 @@ Este projeto é uma API construída usando Java, Java Spring, PostgresSQL como b
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/DevOsvaldo/fretefacil
+git clone https://github.com/DevOsvaldo/fretamento-facil
 ```
 
 2.Instale dependências com Maven
