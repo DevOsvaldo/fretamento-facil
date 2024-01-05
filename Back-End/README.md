@@ -42,13 +42,15 @@ git clone https://github.com/DevOsvaldo/fretamento-facil
 A API fornece os seguintes endpoints:
 
 ```markdown
-GET /cargas/{id} - Retrieve a list of all products. (all authenticated users)
+GET /cargas/{id} - Retrieve a list of all products. (ROLE_MOD REQUIRED)
 
-POST /cargas - Register a new product (ADMIN access required).
+POST /cargas - Register a carga (ROLE_ADMIN or ROLE_MOD access required).
 
 POST /auth/login - Login into the App
 
-POST /auth/register - Register a new user into the App
+POST /auth/register - only Admin in Back-end
+
+GET /condutor - ROLE_USER
 ```
 
 ## Authentication
