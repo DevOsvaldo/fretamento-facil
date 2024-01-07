@@ -2,17 +2,13 @@
 
 # Índice
 * [Título e Imagem de capa](#Titulo)
-* [Badges](#badges)
-* [Índice](#índice)
+* [Tecnologias utilizadas]( #tecnologias-utilizadas)
 * [Descrição do Projeto](#descrição-do-projeto)
-* [Status do Projeto](#status-do-Projeto)
 * [Funcionalidades e Demonstração da Aplicação](#funcionalidades-e-demonstração)
 * [Acesso ao Projeto](#acesso-ao-projeto)
-* [Tecnologias utilizadas](#tecnologias-utilizadas)
 * [Pessoas Contribuidoras](#pessoas-contribuidoras)
 * [Pessoas Desenvolvedoras do Projeto](#pessoas-desenvolvedoras)
-* [Licença](#licença)
-* [Conclusão](#conclusão)
+
 
 
 ### <h1 align="center" id="titulo">Fretamento Fácil</h1>
@@ -77,3 +73,8 @@ Onde eu tenho os meus recursos em mãos sendo possivel atender as minhas demanda
 ### Estrutura de Dados
 
 ![image](https://github.com/DevOsvaldo/fretamento-facil/blob/main/assets/ESTRUTURA-DE-DADOS.png)
+
+
+### Desenvolvedor:
+OSVALDO JUNIOR - Meu Linkedin<a href="https://www.linkedin.com/in/osvaldo-junior-77387298/"><img src="https://github.com/DevOsvaldo/fretamento-facil/assets/85118127/a9928ce3-85ae-483c-a1f8-fd66ee3d25e3"  width=20></a> 
+ 
