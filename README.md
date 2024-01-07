@@ -1,4 +1,5 @@
-<h1 align="center" #titulo>Fretamento Fácil</h1>
+<h1 align="center" id="titulo">Fretamento Fácil</h1>
+![image](https://github.com/DevOsvaldo/fretamento-facil/blob/main/CAPA.jpg)
 # Índice
 
 * [Título e Imagem de capa](#titulo)
