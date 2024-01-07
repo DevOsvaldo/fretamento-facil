@@ -18,7 +18,7 @@
 
 
 
-<img alt="Backend Badge" id="#tecnologias-utilizadas" src="https://img.shields.io/badge/Tecnologias%20utilizadas%20-%20Backend%20-%20blue">
+<img alt="Backend Badge" id="tecnologias-utilizadas" src="https://img.shields.io/badge/Tecnologias%20utilizadas%20-%20Backend%20-%20blue">
 <ul list-style="none">
   <img alt="Java" src="https://user-images.githubusercontent.com/25181517/117201156-9a724800-adec-11eb-9a9d-3cd0f67da4bc.png" width="60">
   <img alt="Spring" src="https://user-images.githubusercontent.com/25181517/117201470-f6d56780-adec-11eb-8f7c-e70e376cfd07.png" width="60">
