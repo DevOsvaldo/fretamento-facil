@@ -5,9 +5,8 @@
 * [Tecnologias utilizadas]( #tecnologias-utilizadas)
 * [Descrição do Projeto](#descrição-do-projeto)
 * [Funcionalidades e Demonstração da Aplicação](#funcionalidades-e-demonstração)
-* [Acesso ao Projeto](#acesso-ao-projeto)
 * [Pessoas Contribuidoras](#pessoas-contribuidoras)
-* [Pessoas Desenvolvedoras do Projeto](#pessoas-desenvolvedoras)
+* [Desenvolvedor do Projeto](#desenvolvedor)
 
 
 
@@ -19,7 +18,7 @@
 
 
 
-<img alt="Backend Badge" src="https://img.shields.io/badge/Tecnologias%20utilizadas%20-%20Backend%20-%20blue">
+<img alt="Backend Badge" id="#tecnologias-utilizadas" src="https://img.shields.io/badge/Tecnologias%20utilizadas%20-%20Backend%20-%20blue">
 <ul list-style="none">
   <img alt="Java" src="https://user-images.githubusercontent.com/25181517/117201156-9a724800-adec-11eb-9a9d-3cd0f67da4bc.png" width="60">
   <img alt="Spring" src="https://user-images.githubusercontent.com/25181517/117201470-f6d56780-adec-11eb-8f7c-e70e376cfd07.png" width="60">
@@ -43,10 +42,12 @@
 </ul>
 
 ### ☕ Descrição do Projeto
-Realizado como proposito de ser o projeto final da Academia Java, eu peguei um problema do meu dia a dia e procurei um meio de solucionar, com isso cheguei a esse projeto. Um sistema de gerenciamento Logistico.
+<p id="descrição-do-projeto">Realizado como proposito de ser o projeto final da Academia Java, eu peguei um problema do meu dia a dia e procurei um meio de solucionar, com isso cheguei a esse projeto. Um sistema de gerenciamento Logistico.
 Onde eu tenho os meus recursos em mãos sendo possivel atender as minhas demandas.
+</p>
 
 ## Funcionalidades:
+<span id="funcionalidades-e-demonstração"></span>
 ### Gestor - (Moderador) 
 * Realiza Cadastros dos Condutores(Motorista - usuario do Tipo: User)
 * Gestor - realiza cadastro da Demandas(Cargas).
@@ -74,7 +75,12 @@ Onde eu tenho os meus recursos em mãos sendo possivel atender as minhas demanda
 
 ![image](https://github.com/DevOsvaldo/fretamento-facil/blob/main/assets/ESTRUTURA-DE-DADOS.png)
 
+### Pessoas Contribuidoras:
+<span id="pessoas-contribuidoras">
+* Professores: Luan Vieira e Gabriel Flores - UFN
+* Colegas: Luzielma e Lucas Batista - UFN
 
 ### Desenvolvedor:
+<span id="desenvolvedor">
 OSVALDO JUNIOR - Meu Linkedin<a href="https://www.linkedin.com/in/osvaldo-junior-77387298/"><img src="https://github.com/DevOsvaldo/fretamento-facil/assets/85118127/a9928ce3-85ae-483c-a1f8-fd66ee3d25e3"  width=20></a> 
  
