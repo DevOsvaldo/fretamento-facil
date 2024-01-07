@@ -73,7 +73,7 @@ Onde eu tenho os meus recursos em mãos sendo possivel atender as minhas demanda
 
 ### Estrutura de Dados
 
-![image](https://github.com/DevOsvaldo/fretamento-facil/blob/main/assets/ESTRUTURA-DE-DADOS.png)
+![image](https://github.com/DevOsvaldo/fretamento-facil/blob/main/assets/bd-structure.png)
 
 <span id="pessoas-contribuidoras">
   
