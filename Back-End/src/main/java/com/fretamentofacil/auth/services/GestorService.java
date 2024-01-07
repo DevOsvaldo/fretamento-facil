@@ -31,7 +31,8 @@ public class GestorService {
     @Autowired
     private  UserService userService;
 
-    public GestorService(GestorRepository gestorRepository, CondutorRepository condutorRepository, CargaRepository cargaRepository, UserRepository userRepository, RoleRepository roleRepository) {
+    public GestorService(GestorRepository gestorRepository, CondutorRepository condutorRepository,
+                         CargaRepository cargaRepository, UserRepository userRepository, RoleRepository roleRepository) {
         this.gestorRepository = gestorRepository;
         this.condutorRepository = condutorRepository;
         this.cargaRepository = cargaRepository;
