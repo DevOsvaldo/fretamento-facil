@@ -75,8 +75,10 @@ Onde eu tenho os meus recursos em mãos sendo possivel atender as minhas demanda
 
 ![image](https://github.com/DevOsvaldo/fretamento-facil/blob/main/assets/ESTRUTURA-DE-DADOS.png)
 
-### Pessoas Contribuidoras:
 <span id="pessoas-contribuidoras">
+  
+### Pessoas Contribuidoras:
+
 * Professores: Luan Vieira e Gabriel Flores - UFN
 * Colegas: Luzielma e Lucas Batista - UFN
 
