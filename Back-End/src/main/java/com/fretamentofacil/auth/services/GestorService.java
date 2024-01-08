@@ -17,7 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
+import java.net.URI;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -123,4 +126,27 @@ public class GestorService {
     public Integer getGestorIdByUserId(Long userId) {
         return gestorRepository.findGestorIdByUserId(userId);
     }
+
+
+    public void enviarNotificacaoWhatsApp(String numeroTelefone, String mensagem){
+        try{
+            String numeroFormatado = numeroTelefone.replaceAll("[^0-9]","");
+
+            String linkWhatsApp = "https:/wa.me/"+ numeroFormatado + "?text=" + mensagem;
+            //Abre  o link no navegador
+            Desktop.getDesktop().browse(new URI(linkWhatsApp));
+        } catch (Exception e){
+
+            e.printStackTrace();
+        }
+    }
+
+    public String obterNumeroTelefoneCondutor(Long condutorId){
+        Condutor condutor = condutorRepository.findById(condutorId).orElseThrow(() ->
+                new RuntimeException("Condutor não encontrado") );
+        return condutor.getTelefone();
+    }
+
+
 }
+
