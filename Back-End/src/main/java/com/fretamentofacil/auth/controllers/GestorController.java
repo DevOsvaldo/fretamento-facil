@@ -54,12 +54,8 @@ public class GestorController {
         return gestorService.inserirCarga(cargaId, gestorId);
     }
     @PostMapping("/notificar")
-    public void notificarMotorista(@PathVariable Long cargaId, @PathVariable Long condutorId){
-        String numeroTelefone = gestorService.obterNumeroTelefoneCondutor(condutorId);
-
-        String mensagem = "Sua carga está pronta para ser retirada. Entre em contato para mais detalhes";
-
-        gestorService.enviarNotificacaoWhatsApp(numeroTelefone, mensagem);
+    public void notificarMotorista(@RequestParam Long cargaId, @RequestParam Long condutorId){
+        gestorService.notificarMotorista(cargaId, condutorId);
     }
     @PutMapping("/modificar/{cargaId}")
     public Carga modificarCarga(@PathVariable Long cargaId, Carga  cargaModificada){
