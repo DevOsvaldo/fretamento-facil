@@ -22,6 +22,7 @@ public class Condutor {
     private Long id;
     private String nome;
     private String cpf;
+    private String telefone;
     private String endereco;
     private String cep;
     private String tipo_Veiculo;
