@@ -18,7 +18,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -127,21 +129,30 @@ public class GestorService {
         return gestorRepository.findGestorIdByUserId(userId);
     }
 
-
-    public void enviarNotificacaoWhatsApp(String numeroTelefone, String mensagem){
+    public void notificarMotorista(Long cargaId, Long condutorId){
+        String numeroTelefone = obterNumeroTelefoneCondutor(condutorId);
+        String mensagem = "Sua carga está pronta para ser retirada. Entre em contato para mais detalhes";
+        enviarNotificacaoWhatsApp(numeroTelefone, mensagem);
+    }
+    private void enviarNotificacaoWhatsApp(String numeroTelefone, String mensagem){
         try{
             String numeroFormatado = numeroTelefone.replaceAll("[^0-9]","");
+            String mensagemCodificada = URLEncoder.encode(mensagem, "UTF-8");
 
-            String linkWhatsApp = "https:/wa.me/"+ numeroFormatado + "?text=" + mensagem;
+            String linkWhatsApp = "https://web.whatsapp.com/send?phone="+ numeroFormatado + "?text=" +
+                    mensagemCodificada;
+
+
+            System.out.println("Link do WhatsApp: " + linkWhatsApp);
             //Abre  o link no navegador
-            Desktop.getDesktop().browse(new URI(linkWhatsApp));
-        } catch (Exception e){
+
+        } catch (UnsupportedEncodingException e){
 
             e.printStackTrace();
         }
     }
 
-    public String obterNumeroTelefoneCondutor(Long condutorId){
+    private String obterNumeroTelefoneCondutor(Long condutorId){
         Condutor condutor = condutorRepository.findById(condutorId).orElseThrow(() ->
                 new RuntimeException("Condutor não encontrado") );
         return condutor.getTelefone();
