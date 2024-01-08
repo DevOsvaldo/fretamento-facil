@@ -71,6 +71,7 @@ public class CondutorService {
                 role,
                 condutor.getNome(),
                 condutor.getCpf(),
+                condutor.getTelefone(),
                 condutor.getCep(),
                 condutor.getEndereco(),
                 condutor.getTipo_Veiculo(),
@@ -116,6 +117,7 @@ public class CondutorService {
         condutor.setEndereco(condutorDto.endereco());
         condutor.setUser(user);
         condutor.setCpf(condutorDto.cpf());
+        condutor.setTelefone(condutorDto.telefone());
         condutor.setTipo_Veiculo(condutorDto.tipo_Veiculo());
         condutor.setCapacidadeVeiculo(condutorDto.capacidadeVeiculo());
         condutor.setSituacaoCondutor(condutorDto.situacaoCondutor());
@@ -135,6 +137,7 @@ public class CondutorService {
         // Atualizar apenas as propriedades específicas do Condutor
         condutor.setNome(condutorDTO.nome());
         condutor.setCpf(condutorDTO.cpf());
+        condutor.setTelefone(condutorDTO.telefone());
         condutor.setCep(condutorDTO.cep());
         condutor.setEndereco(condutorDTO.endereco());
         condutor.setTipo_Veiculo(condutorDTO.tipo_Veiculo());
