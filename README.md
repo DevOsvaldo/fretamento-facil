@@ -50,7 +50,7 @@ Onde eu tenho os meus recursos em mãos sendo possivel atender as minhas demanda
 <span id="funcionalidades-e-demonstração"></span>
 ### Gestor - (Moderador) 
 * Realiza Cadastros dos Condutores(Motorista - usuario do Tipo: User)
-* Gestor - realiza cadastro da Demandas(Cargas).
+* Gestor - realiza cadastro das Demandas(Cargas).
 * Direciona ao carregamento dessas demandas, caso tenha condutor disponivel.
 * Tem acesso a informação de cada carregamento realizado
 * Tem acesso a lista de cargas disponiveis ativas ou inativas
