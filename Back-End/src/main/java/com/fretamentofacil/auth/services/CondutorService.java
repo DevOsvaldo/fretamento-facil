@@ -143,7 +143,7 @@ public class CondutorService {
         condutor.setTipo_Veiculo(condutorDTO.tipo_Veiculo());
         condutor.setCapacidadeVeiculo(condutorDTO.capacidadeVeiculo());
         condutor.setSituacaoCondutor(condutorDTO.situacaoCondutor());
-        // Adicione outras propriedades do Condutor que você deseja atualizar
+        
 
         // Salvar as alterações no Condutor
         return condutorRepository.save(condutor);
