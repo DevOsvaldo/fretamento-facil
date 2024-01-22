@@ -25,7 +25,7 @@ import { CondutorDashComponent } from './pages/condutor-dash/condutor-dash/condu
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { ObterInfoComponent } from './gestores/obter-info/obter-info/obter-info.component';
 
-//import { CargasResolver } from './guard/cargas.resolver';
+
 
 @NgModule({
   declarations: [
@@ -55,7 +55,7 @@ import { ObterInfoComponent } from './gestores/obter-info/obter-info/obter-info.
   ],
   providers: [
     AuthService,
-    // CargasResolver,
+
     CargasService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
